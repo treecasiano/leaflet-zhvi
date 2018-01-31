@@ -1,4 +1,5 @@
-This is a boilerplate repo for static sites that uses NPM for front end package management. 
+Boilerplate repo for mapping with Leaflet. Using NPM for front end package management.
+ 
 
 1. Install Node. I recommend using Node Version Manager https://github.com/creationix/nvm so that you can hook into the `.nvmrc` file for automated Node version management goodness. 
 
