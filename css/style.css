@@ -1,3 +1,7 @@
 body {
     font-family: 'Franklin Gothic Medium', sans-serif;
 }
+
+#map-id {
+    height: 400px;
+}
