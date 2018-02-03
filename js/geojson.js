@@ -1,7 +1,7 @@
 function getMap(){
 
+    var myMap;
     var geojsonMarkerOptions;
-	var myMap;
     
     // default values
     var myCenterCoords = [20, 0];
@@ -9,11 +9,12 @@ function getMap(){
     var tileLayerUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var tileLayerAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 
+    // create leaflet objects
     myMap = L.map('map-id').setView(myCenterCoords, defaultZoom);
         
 	L.tileLayer(tileLayerUrl, {
 		attribution: tileLayerAttrib,
-		maxZoom: 13,
+		maxZoom: 18,
 
 	}).addTo(myMap);
 
@@ -23,15 +24,18 @@ function getMap(){
         $.ajax('data/megaCities.geojson', {
             dataType: 'json',
             success: function(response) {
-            
-                // create a Leaflet GeoJSON layer and add it to the map
-                L.geoJson(response, {
+                var geojsonLayer = L.geoJson(response, {
                     filter: filterFeatures,
                     pointToLayer: function (feature, latlng) {
                         return L.circleMarker(latlng, geojsonMarkerOptions);
                     },
                     onEachFeature: onEachFeature
-                }).addTo(map);
+                });
+
+                var markerClusterGroupLayer = L.markerClusterGroup(); 
+                markerClusterGroupLayer.addLayer(geojsonLayer);
+                map.addLayer(markerClusterGroupLayer);
+    
             }
         });  
     }
@@ -48,7 +52,7 @@ function getMap(){
     }
 
     function filterFeatures(feature, layer) {
-        return feature.properties.Pop_2015 > 20;
+        return feature.properties.Pop_2015 > 10;
     }
 
     function onEachFeature(feature, layer) {
