@@ -21,7 +21,7 @@ function getMap(){
     getData(myMap);
 
     function getData(map) {
-        $.ajax('data/megaCities.geojson', {
+        $.ajax('data/metroRegionsZHVI2017.geojson', {
             dataType: 'json',
             success: function(response) {
                 var geojsonLayer = L.geoJson(response, {
@@ -32,9 +32,7 @@ function getMap(){
                     onEachFeature: onEachFeature
                 });
 
-                var markerClusterGroupLayer = L.markerClusterGroup(); 
-                markerClusterGroupLayer.addLayer(geojsonLayer);
-                map.addLayer(markerClusterGroupLayer);
+                map.addLayer(geojsonLayer);
     
             }
         });  
@@ -43,16 +41,16 @@ function getMap(){
     // helper functions, implementation details, and options
 
     var geojsonMarkerOptions =  {
-        radius: 8,
-        fillColor: "#ff7800",
+        radius: 5,
+        fillColor: "#8B008B",
         color: "#000",
         weight: 1, 
         opacity: 1, 
-        fillOpacity: 0.8
+        fillOpacity: 0.9
     }
 
     function filterFeatures(feature, layer) {
-        return feature.properties.Pop_2015 > 10;
+        return true;
     }
 
     function onEachFeature(feature, layer) {
