@@ -51,11 +51,10 @@ function getMap(){
         geojsonMarkerOptions.radius = calculateSymbolRadius(attributeValue);
 
         var layer = L.circleMarker(latlng, geojsonMarkerOptions);
-
+        var popupHeader = "<p><strong>" + formatMonth(attribute) + "&nbsp;2017</strong></p>";
         var cityDisplayName = "<p><strong>City:</strong> " + feature.properties.regionName + "</p>";
-        var attributeDisplayText = "<p><strong>Median Home Value " +
-            formatMonth(attribute)  + "&nbsp;2017: </strong>" + formatCurrency(attributeValue) + "</p>";
-        var popupContent = cityDisplayName + attributeDisplayText;
+        var attributeDisplayText = "<p><strong>Median Home Value: </strong>" + formatCurrency(attributeValue) + "</p>";
+        var popupContent = popupHeader + cityDisplayName + attributeDisplayText;
         layer.bindPopup(popupContent);
         return layer;
     }
