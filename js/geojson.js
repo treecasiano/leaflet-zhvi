@@ -62,8 +62,7 @@ function getMap(){
     function calculateSymbolRadius(attrValue) {
         var scaleFactor = .0006;
         var area = attrValue * scaleFactor;
-        var radius = Math.sqrt(area/Math.PI);
-        return radius;
+        return Math.sqrt(area / Math.PI);
     }
 
     function formatMonth(zhviAttr) {
