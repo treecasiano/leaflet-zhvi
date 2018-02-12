@@ -35,6 +35,7 @@ function getMap(){
         });
     }
 
+
     function pointToLayer(feature, latlng) {
         var attribute  = "2017-01";
         var attributeValue = Number(feature.properties[attribute]);
@@ -53,7 +54,7 @@ function getMap(){
 
         var cityDisplayName = "<p><strong>City:</strong> " + feature.properties.regionName + "</p>";
         var attributeDisplayText = "<p><strong>Median Home Value " +
-            formatMonth(attribute)  + "&nbsp;2017: </strong>" + feature.properties[attribute] + "</p>";
+            formatMonth(attribute)  + "&nbsp;2017: </strong>" + formatCurrency(attributeValue) + "</p>";
         var popupContent = cityDisplayName + attributeDisplayText;
         layer.bindPopup(popupContent);
         return layer;
@@ -83,6 +84,15 @@ function getMap(){
         };
         var monthString = zhviAttr.slice(-2);
         return monthsOfYear[monthString];
+    }
+
+    function formatCurrency(dollarValue) {
+        // syntax numObj.toLocaleString([locales [, options]])
+        return dollarValue.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 0
+        });
     }
 }
 
