@@ -4,8 +4,9 @@ function getMap(){
     var geojsonMarkerOptions;
     
     // default values
-    var myCenterCoords = [20, 0];
-    var defaultZoom = 2
+    var myCenterCoords = [39.8097, -98.5556];  
+    var defaultZoom = 4
+    
     var tileLayerUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var tileLayerAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 
@@ -24,9 +25,13 @@ function getMap(){
         $.ajax('data/metroRegionsZHVI2017.geojson', {
             dataType: 'json',
             success: function(response) {
+                var attribute  = "2017-01";
                 var geojsonLayer = L.geoJson(response, {
                     filter: filterFeatures,
                     pointToLayer: function (feature, latlng) {
+                        var attributeValue = Number(feature.properties[attribute]);
+                        console.log(feature.properties, attributeValue);
+                        geojsonMarkerOptions.radius = calculateSymbolRadius(attributeValue);
                         return L.circleMarker(latlng, geojsonMarkerOptions);
                     },
                     onEachFeature: onEachFeature
@@ -38,8 +43,6 @@ function getMap(){
         });  
     }
 
-    // helper functions, implementation details, and options
-
     var geojsonMarkerOptions =  {
         radius: 5,
         fillColor: "#8B008B",
@@ -47,6 +50,15 @@ function getMap(){
         weight: 1, 
         opacity: 1, 
         fillOpacity: 0.9
+    }
+
+    // helper functions and options
+
+    function calculateSymbolRadius(attrValue) {
+        var scaleFactor = .0006;
+        var area = attrValue * scaleFactor; 
+        var radius = Math.sqrt(area/Math.PI);
+        return radius;
     }
 
     function filterFeatures(feature, layer) {
