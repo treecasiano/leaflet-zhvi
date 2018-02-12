@@ -35,7 +35,6 @@ function getMap(){
         });
     }
 
-
     function pointToLayer(feature, latlng) {
         var attribute  = "2017-01";
         var attributeValue = Number(feature.properties[attribute]);
@@ -54,8 +53,20 @@ function getMap(){
         var popupHeader = "<p><strong>" + formatMonth(attribute) + "&nbsp;2017</strong></p>";
         var cityDisplayName = "<p><strong>City:</strong> " + feature.properties.regionName + "</p>";
         var attributeDisplayText = "<p><strong>Median Home Value: </strong>" + formatCurrency(attributeValue) + "</p>";
+
         var popupContent = popupHeader + cityDisplayName + attributeDisplayText;
+
         layer.bindPopup(popupContent);
+
+        layer.on({
+            mouseover: function() {
+                this.openPopup();
+            },
+            mouseout: function() {
+                this.closePopup();
+            }
+        });
+
         return layer;
     }
 
