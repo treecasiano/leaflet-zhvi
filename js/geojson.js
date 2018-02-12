@@ -56,7 +56,9 @@ function getMap(){
 
         var popupContent = popupHeader + cityDisplayName + attributeDisplayText;
 
-        layer.bindPopup(popupContent);
+        layer.bindPopup(popupContent, {
+            offset: new L.Point(0, -geojsonMarkerOptions.radius)
+        });
 
         layer.on({
             mouseover: function() {
