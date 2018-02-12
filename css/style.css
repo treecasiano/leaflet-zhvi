@@ -2,15 +2,13 @@ body {
     font-family: 'Franklin Gothic Medium', sans-serif;
 }
 
-#map-id {
+#map {
     height: 100vh;
 }
 
-/*leaflet overrides*/
 
-.leaflet-popup {
-    /*width: 500px;*/
-}
+
+/*leaflet overrides*/
 
 .leaflet-popup-content {
     margin: 15px;

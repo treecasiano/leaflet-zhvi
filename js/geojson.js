@@ -9,7 +9,7 @@ function getMap(){
 	var tileLayerAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 
     // create leaflet objects
-    myMap = L.map('map-id').setView(myCenterCoords, defaultZoom);
+    myMap = L.map('map').setView(myCenterCoords, defaultZoom);
 
 	L.tileLayer(tileLayerUrl, {
 		attribution: tileLayerAttrib,
