@@ -54,10 +54,12 @@ function getMap(){
         var cityDisplayName = "<p><strong>City:</strong> " + feature.properties.regionName + "</p>";
         var attributeDisplayText = "<p><strong>Median Home Value: </strong>" + formatCurrency(attributeValue) + "</p>";
 
-        var popupContent = popupHeader + cityDisplayName + attributeDisplayText;
+        var popupContent = cityDisplayName;
+        var panelContent = popupHeader + cityDisplayName + attributeDisplayText;
 
         layer.bindPopup(popupContent, {
-            offset: new L.Point(0, -geojsonMarkerOptions.radius)
+            offset: new L.Point(0, -geojsonMarkerOptions.radius),
+            closeButton: false
         });
 
         layer.on({
@@ -66,6 +68,9 @@ function getMap(){
             },
             mouseout: function() {
                 this.closePopup();
+            },
+            click: function() {
+                $('#panel').html(panelContent);
             }
         });
 
