@@ -21,20 +21,14 @@ function getMap(){
 
     getData(myMap);
 
+
     function getData(map) {
         $.ajax('data/metroRegionsZHVI2017.geojson', {
             dataType: 'json',
             success: function(response) {
-                var attribute  = "2017-01";
+                
                 var geojsonLayer = L.geoJson(response, {
-                    filter: filterFeatures,
-                    pointToLayer: function (feature, latlng) {
-                        var attributeValue = Number(feature.properties[attribute]);
-                        console.log(feature.properties, attributeValue);
-                        geojsonMarkerOptions.radius = calculateSymbolRadius(attributeValue);
-                        return L.circleMarker(latlng, geojsonMarkerOptions);
-                    },
-                    onEachFeature: onEachFeature
+                    pointToLayer: pointToLayer
                 });
 
                 map.addLayer(geojsonLayer);
@@ -43,16 +37,28 @@ function getMap(){
         });  
     }
 
-    var geojsonMarkerOptions =  {
-        radius: 5,
-        fillColor: "#8B008B",
-        color: "#000",
-        weight: 1, 
-        opacity: 1, 
-        fillOpacity: 0.9
-    }
+    function pointToLayer(feature, latlng) {
+        var attribute  = "2017-01";
+        var attributeValue = Number(feature.properties[attribute]);
+        var geojsonMarkerOptions =  {
+            radius: 5,
+            fillColor: "#8B008B",
+            color: "#000",
+            weight: 1, 
+            opacity: 1, 
+            fillOpacity: 0.9
+        }     
 
-    // helper functions and options
+        geojsonMarkerOptions.radius = calculateSymbolRadius(attributeValue);
+
+        var layer = L.circleMarker(latlng, geojsonMarkerOptions);
+
+        var cityDisplayName = "<p><strong>City:</strong> " + feature.properties.regionName + "</p>";
+        var attributeDisplayText = "<p><strong>Attribute:</strong> " + feature.properties[attribute] + "</p>";
+        var popupContent = cityDisplayName + attributeDisplayText;
+        layer.bindPopup(popupContent);
+        return layer;
+    }
 
     function calculateSymbolRadius(attrValue) {
         var scaleFactor = .0006;
@@ -61,21 +67,6 @@ function getMap(){
         return radius;
     }
 
-    function filterFeatures(feature, layer) {
-        return true;
-    }
-
-    function onEachFeature(feature, layer) {
-    
-        var popupContent = "";
-
-        if (feature.properties) {
-            for (var property in feature.properties) {
-                popupContent += "<p>" + property + ": " + feature.properties[property] + "</p>";
-            }
-            layer.bindPopup(popupContent);
-        }
-    }
 }
 
 $(document).ready(getMap);
