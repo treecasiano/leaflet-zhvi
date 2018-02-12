@@ -31,6 +31,8 @@ function getMap(){
 
                 map.addLayer(geojsonLayer);
 
+                createSequenceControls(map);
+
             }
         });
     }
@@ -75,6 +77,23 @@ function getMap(){
         });
 
         return layer;
+    }
+
+    function createSequenceControls(map) {
+        var panel = $('#panel');
+        panel.append('<input id="range-slider" class="range-slider" type="range">');
+        // slider attributes
+        $('#range-slider').attr({
+            max: 11,
+            min: 0,
+            value: 0,
+            step: 1
+        });
+        panel.append('<div id="slider-button-container"></div>');
+        $('#slider-button-container').append('<button id="reverse-button" class="slider-buttons">Reverse</button>');
+        $('#slider-button-container').append('<button id="forward-button" class="slider-buttons">Skip</button>');
+
+
     }
 
     function calculateSymbolRadius(attrValue) {

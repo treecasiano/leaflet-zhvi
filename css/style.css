@@ -9,16 +9,28 @@ body {
 }
 
 #panel {
+    color: purple;
     display: inline-block;
+    height: 100vh;
     padding: 20px;
+    text-align: center;
     vertical-align: top;
     width: 15%;
 }
 
-#panel p {
-    color: purple;
+#range-slider {
+    width: 50%;
 }
 
+.slider-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.slider-buttons {
+    width: 100px;
+}
 
 
 /*leaflet overrides*/
