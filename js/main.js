@@ -6,6 +6,7 @@ function getMap(){
     var defaultZoom = 4;
 
 	var infoContainer = $('#info-container');
+	var citiesByHomeValue = $('#cities-by-home-value');
 
     myMap = L.map('map').setView(myCenterCoords, defaultZoom);
 
@@ -57,6 +58,7 @@ function getMap(){
 
         var timePeriod = formatTimePeriod(attribute);
         infoContainer.html(timePeriod);
+        citiesByHomeValue.append(createCitiesList(feature.properties, attribute));
 
         return layer;
     }
@@ -94,21 +96,30 @@ function getMap(){
             var index = slider.val();
             if ($(this).attr('id') === 'forward-button') {
                 index++;
-                index = index > attributes.length ? 0 : index;
+                index = index > attributes.length - 1 ? 0 : index;
             } else if ($(this).attr('id') === 'reverse-button') {
                 index--;
-                index = index < 0 ? attributes.length  : index;
+                index = index < 0 ? attributes.length - 1  : index;
             }
 
             slider.val(index);
-            updatePropSymbols(map, attributes[index]);
+            citiesByHomeValue.html('');
+            updateDisplayedData(map, attributes[index]);
         });
 
         slider.click(function() {
             var index = $(this).val();
-            updatePropSymbols(map, attributes[index]);
+            citiesByHomeValue.html('');
+            updateDisplayedData(map, attributes[index]);
         });
 
+    }
+
+    function createCitiesList(featureProperties, attribute) {
+        var regionName = featureProperties.regionName;
+        var homeValue = formatCurrency(featureProperties[attribute]);
+        var listItemText = regionName + ": " + homeValue;
+        return $('<li></li>').text(listItemText);
     }
 
     function calculateSymbolRadius(attrValue) {
@@ -162,8 +173,9 @@ function getMap(){
         return header + cityDisplayName + attributeDisplayText;
     }
 
-    function updatePropSymbols(map, attribute) {
+    function updateDisplayedData(map, attribute) {
         map.closePopup();
+        // update prop symbols, popup content, and list of cities
         map.eachLayer(function(layer) {
             if (layer.feature && layer.feature.properties[attribute]) {
                 // update the layer style and popup
@@ -172,13 +184,12 @@ function getMap(){
                 var timePeriod = formatTimePeriod(attribute);
                 infoContainer.html(timePeriod);
                 var popupContent = updatePopupContent(props, attribute);
-
+                citiesByHomeValue.append(createCitiesList(props, attribute));
+                console.log('citiesByHomeValue', citiesByHomeValue);
                 layer.setRadius(radius);
                 layer.bindPopup(popupContent, {
                     offset: new L.Point(0, -radius)
                 });
-
-
             }
         });
     }

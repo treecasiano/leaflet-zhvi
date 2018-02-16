@@ -10,7 +10,7 @@ h1 {
 #map {
     display: inline-block;
     height: 100vh;
-    width: 80%;
+    width: 75%;
 }
 
 #panel {
@@ -22,7 +22,12 @@ h1 {
     padding: 20px;
     text-align: center;
     vertical-align: top;
-    width: 15%;
+    width: 20%;
+}
+
+#panel ol {
+    font-size: 12px;
+    text-align: left;
 }
 
 .range-slider {
