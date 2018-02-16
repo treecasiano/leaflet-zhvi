@@ -72,7 +72,7 @@ function getMap(){
                 this.closePopup();
             },
             click: function() {
-                $('#panel').html(panelContent);
+                $('#info-container').html(panelContent);
             }
         });
 
@@ -80,8 +80,8 @@ function getMap(){
     }
 
     function createSequenceControls(map) {
-        var panel = $('#panel');
-        panel.append('<input id="range-slider" class="range-slider" type="range">');
+        var sequenceControlsContainer = $('#sequence-controls-container');
+        sequenceControlsContainer.append('<input id="range-slider" class="range-slider" type="range">');
         // slider attributes
         $('#range-slider').attr({
             max: 11,
@@ -89,9 +89,9 @@ function getMap(){
             value: 0,
             step: 1
         });
-        panel.append('<div id="slider-button-container"></div>');
-        $('#slider-button-container').append('<button id="reverse-button" class="slider-buttons">Reverse</button>');
-        $('#slider-button-container').append('<button id="forward-button" class="slider-buttons">Skip</button>');
+        sequenceControlsContainer.append('<div id="slider-button-container"></div>');
+        $('#slider-button-container').append('<button id="reverse-button" class="slider-buttons"><i class="fas fa-step-backward"></i></button>');
+        $('#slider-button-container').append('<button id="forward-button" class="slider-buttons"><i class="fas fa-step-forward"></i></button>');
 
 
     }
