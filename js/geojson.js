@@ -5,19 +5,11 @@ function getMap(){
     var myCenterCoords = [39.8097, -98.5556];
     var defaultZoom = 4;
 
-    var tileLayerUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	var tileLayerAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-
 	var infoContainer = $('#info-container');
 
-    // create leaflet objects
     myMap = L.map('map').setView(myCenterCoords, defaultZoom);
 
-	L.tileLayer(tileLayerUrl, {
-		attribution: tileLayerAttrib,
-		maxZoom: 18
-
-	}).addTo(myMap);
+    L.tileLayer.provider('CartoDB.Positron').addTo(myMap);
 
     getData(myMap);
 
