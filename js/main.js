@@ -79,7 +79,7 @@ function getMap(){
         var slider = $('#range-slider');
         // slider attributes
         slider.attr({
-            max: attributes.length,
+            max: attributes.length - 1,
             min: 0,
             value: 0,
             step: 1
@@ -112,7 +112,7 @@ function getMap(){
     }
 
     function calculateSymbolRadius(attrValue) {
-        var scaleFactor = .0025;
+        var scaleFactor = .004;
         var area = attrValue * scaleFactor;
         return Math.sqrt(area / Math.PI);
     }
