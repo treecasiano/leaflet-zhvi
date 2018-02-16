@@ -22,13 +22,13 @@ body {
     width: 50%;
 }
 
-.slider-button-container {
+.sequence-button-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.slider-buttons {
+.sequence-buttons {
     width: 100px;
 }
 

@@ -19,26 +19,28 @@ function getMap(){
 
     getData(myMap);
 
-
     function getData(map) {
         $.ajax('data/metroRegionsZHVI2017.geojson', {
             dataType: 'json',
             success: function(response) {
+                var attributes = processData(response);
 
                 var geojsonLayer = L.geoJson(response, {
-                    pointToLayer: pointToLayer
+                    pointToLayer: function(feature, latlng) {
+                        return pointToLayer(feature, latlng, attributes);
+                    }
                 });
 
                 map.addLayer(geojsonLayer);
 
-                createSequenceControls(map);
+                createSequenceControls(map, attributes);
 
             }
         });
     }
 
-    function pointToLayer(feature, latlng) {
-        var attribute  = "2017-01";
+    function pointToLayer(feature, latlng, attributes) {
+        var attribute  = attributes[0];
         var attributeValue = Number(feature.properties[attribute]);
         var geojsonMarkerOptions =  {
             radius: 5,
@@ -52,12 +54,8 @@ function getMap(){
         geojsonMarkerOptions.radius = calculateSymbolRadius(attributeValue);
 
         var layer = L.circleMarker(latlng, geojsonMarkerOptions);
-        var popupHeader = "<p><strong>" + formatMonth(attribute) + "&nbsp;2017</strong></p>";
-        var cityDisplayName = "<p><strong>City:</strong> " + feature.properties.regionName + "</p>";
-        var attributeDisplayText = "<p><strong>Median Home Value: </strong>" + formatCurrency(attributeValue) + "</p>";
 
-        var popupContent = cityDisplayName;
-        var panelContent = popupHeader + cityDisplayName + attributeDisplayText;
+        var popupContent = updatePopupContent(feature.properties, attribute);
 
         layer.bindPopup(popupContent, {
             offset: new L.Point(0, -geojsonMarkerOptions.radius),
@@ -72,33 +70,65 @@ function getMap(){
                 this.closePopup();
             },
             click: function() {
-                $('#info-container').html(panelContent);
+                $('#info-container').html(popupContent);
             }
         });
 
         return layer;
     }
 
-    function createSequenceControls(map) {
+    function processData(data) {
+        var attributes = [];
+        var properties = data.features[0].properties;
+        for (var attribute in properties) {
+            if (attribute.indexOf('2017') > -1) {
+                attributes.push(attribute);
+            }
+        }
+        return attributes;
+    }
+
+    function createSequenceControls(map, attributes) {
         var sequenceControlsContainer = $('#sequence-controls-container');
         sequenceControlsContainer.append('<input id="range-slider" class="range-slider" type="range">');
+        var slider = $('#range-slider');
         // slider attributes
-        $('#range-slider').attr({
+        slider.attr({
             max: 11,
             min: 0,
             value: 0,
             step: 1
         });
-        sequenceControlsContainer.append('<div id="slider-button-container"></div>');
-        $('#slider-button-container').append('<button id="reverse-button" class="slider-buttons" aria-label="Reverse"></button>');
-        $('#slider-button-container').append('<button id="forward-button" class="slider-buttons" aria-label="Forward"></button>');
+        sequenceControlsContainer.append('<div id="sequence-button-container"></div>');
+        $('#sequence-button-container').append('<button id="reverse-button" class="sequence-buttons" aria-label="Reverse"></button>');
+        $('#sequence-button-container').append('<button id="forward-button" class="sequence-buttons" aria-label="Forward"></button>');
         $('#reverse-button').append('<i class="fas fa-step-backward" aria-hidden="true"></i>');
         $('#forward-button').append('<i class="fas fa-step-forward" aria-hidden="true"></i>');
+
+        $('.sequence-buttons').click(function() {
+            var index = slider.val();
+            if ($(this).attr('id') === 'forward-button') {
+                index++;
+                index = index > 11 ? 0 : index;
+            } else if ($(this).attr('id') === 'reverse-button') {
+                index--;
+                index = index < 0 ? 11  : index;
+            }
+
+            slider.val(index);
+            updatePropSymbols(map, attributes[index]);
+        });
+
+        slider.click(function() {
+            //sequence
+            var index = $(this).val();
+            updatePropSymbols(map, attributes[index]);
+        });
 
     }
 
     function calculateSymbolRadius(attrValue) {
-        var scaleFactor = .0006;
+        var scaleFactor = .0025;
         var area = attrValue * scaleFactor;
         return Math.sqrt(area / Math.PI);
     }
@@ -129,6 +159,40 @@ function getMap(){
             style: "currency",
             currency: "USD",
             minimumFractionDigits: 0
+        });
+    }
+
+    function updatePopupContent(props, attribute) {
+        var attributeValue = Number(props[attribute]);
+        var header = "<p><strong>" + formatMonth(attribute) + "&nbsp;2017</strong></p>";
+        var cityDisplayName = "<p><strong>City:</strong> " + props.regionName + "</p>";
+        var attributeDisplayText = "<p><strong>Median Home Value: </strong>" + formatCurrency(attributeValue) + "</p>";
+        return header + cityDisplayName + attributeDisplayText;
+    }
+
+    function updatePropSymbols(map, attribute) {
+        map.eachLayer(function(layer) {
+            if (layer.feature && layer.feature.properties[attribute]) {
+                // update the layer style and popup
+                var props = layer.feature.properties;
+                var radius = calculateSymbolRadius(props[attribute]);
+                layer.setRadius(radius);
+
+                var popupContent = updatePopupContent(props, attribute);
+                layer.bindPopup(popupContent, {
+                    offset: new L.Point(0, -radius)
+                });
+
+                // clear panel content
+                $('#info-container').html("<p><strong>" + formatMonth(attribute) + "&nbsp;2017</strong></p>");
+
+                layer.on({
+                    click: function() {
+                        $('#info-container').html(popupContent);
+                    }
+                });
+
+            }
         });
     }
 }
