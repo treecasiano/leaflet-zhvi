@@ -2,6 +2,11 @@ body {
     font-family: 'Franklin Gothic Medium', sans-serif;
 }
 
+
+h1 {
+    font-size: 20px;
+}
+
 #map {
     display: inline-block;
     height: 100vh;
@@ -9,18 +14,25 @@ body {
 }
 
 #panel {
-    color: purple;
+    background: #71a3be;
+    color: white;
     display: inline-block;
     height: 100vh;
+    margin-left: -10px;
     padding: 20px;
     text-align: center;
     vertical-align: top;
     width: 15%;
 }
 
-#range-slider {
-    width: 50%;
+.range-slider {
+    width: 75%;
 }
+
+input[type=range]{
+    /*-webkit-appearance: none;*/
+}
+
 
 .sequence-button-container {
     display: flex;
@@ -29,6 +41,7 @@ body {
 }
 
 .sequence-buttons {
+    color: #71a3be;
     width: 100px;
 }
 
@@ -40,9 +53,14 @@ body {
 }
 
 .leaflet-popup-content p {
-    color: purple;
+    color: white;
     font-size: 18px;
     margin: 2px 0;
     max-width: 275px;
+}
+
+.leaflet-popup-content-wrapper {
+    background: #71a3be;
+    border-radius: 0;
 }
 
