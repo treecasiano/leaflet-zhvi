@@ -22,7 +22,7 @@ function getMap(){
     getData(myMap);
 
     function getData(map) {
-        $.ajax('data/metroRegionsZHVI2017.geojson', {
+        $.ajax('data/metroRegionsZHVI.geojson', {
             dataType: 'json',
             success: function(response) {
                 var attributes = processData(response);
@@ -73,7 +73,8 @@ function getMap(){
         var attributes = [];
         var properties = data.features[0].properties;
         for (var attribute in properties) {
-            if (attribute.indexOf('2017') > -1) {
+            // retrieve all the years starting with 2000
+            if (attribute.indexOf('2') > -1) {
                 attributes.push(attribute);
             }
         }
@@ -86,7 +87,7 @@ function getMap(){
         var slider = $('#range-slider');
         // slider attributes
         slider.attr({
-            max: 11,
+            max: attributes.length,
             min: 0,
             value: 0,
             step: 1
@@ -101,10 +102,10 @@ function getMap(){
             var index = slider.val();
             if ($(this).attr('id') === 'forward-button') {
                 index++;
-                index = index > 11 ? 0 : index;
+                index = index > attributes.length ? 0 : index;
             } else if ($(this).attr('id') === 'reverse-button') {
                 index--;
-                index = index < 0 ? 11  : index;
+                index = index < 0 ? attributes.length  : index;
             }
 
             slider.val(index);
@@ -176,15 +177,16 @@ function getMap(){
                 // update the layer style and popup
                 var props = layer.feature.properties;
                 var radius = calculateSymbolRadius(props[attribute]);
-                layer.setRadius(radius);
-
+                var timePeriod = formatTimePeriod(attribute);
+                infoContainer.html(timePeriod);
                 var popupContent = updatePopupContent(props, attribute);
+
+                layer.setRadius(radius);
                 layer.bindPopup(popupContent, {
                     offset: new L.Point(0, -radius)
                 });
 
-                var timePeriod = formatTimePeriod(attribute);
-                infoContainer.html(timePeriod);
+
             }
         });
     }
