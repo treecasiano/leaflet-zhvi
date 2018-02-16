@@ -90,9 +90,10 @@ function getMap(){
             step: 1
         });
         sequenceControlsContainer.append('<div id="slider-button-container"></div>');
-        $('#slider-button-container').append('<button id="reverse-button" class="slider-buttons"><i class="fas fa-step-backward"></i></button>');
-        $('#slider-button-container').append('<button id="forward-button" class="slider-buttons"><i class="fas fa-step-forward"></i></button>');
-
+        $('#slider-button-container').append('<button id="reverse-button" class="slider-buttons" aria-label="Reverse"></button>');
+        $('#slider-button-container').append('<button id="forward-button" class="slider-buttons" aria-label="Forward"></button>');
+        $('#reverse-button').append('<i class="fas fa-step-backward" aria-hidden="true"></i>');
+        $('#forward-button').append('<i class="fas fa-step-forward" aria-hidden="true"></i>');
 
     }
 
@@ -103,6 +104,7 @@ function getMap(){
     }
 
     function formatMonth(zhviAttr) {
+        // takes the Zillow header string formatted as YYYY/MM and returns the month in English
         var monthsOfYear = {
            '01': 'January',
            '02': 'February',
