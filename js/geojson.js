@@ -8,6 +8,8 @@ function getMap(){
     var tileLayerUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var tileLayerAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 
+	var infoContainer = $('#info-container');
+
     // create leaflet objects
     myMap = L.map('map').setView(myCenterCoords, defaultZoom);
 
@@ -58,21 +60,11 @@ function getMap(){
         var popupContent = updatePopupContent(feature.properties, attribute);
 
         layer.bindPopup(popupContent, {
-            offset: new L.Point(0, -geojsonMarkerOptions.radius),
-            closeButton: false
+            offset: new L.Point(0, -geojsonMarkerOptions.radius)
         });
 
-        layer.on({
-            mouseover: function() {
-                this.openPopup();
-            },
-            mouseout: function() {
-                this.closePopup();
-            },
-            click: function() {
-                $('#info-container').html(popupContent);
-            }
-        });
+        var timePeriod = formatTimePeriod(attribute);
+        infoContainer.html(timePeriod);
 
         return layer;
     }
@@ -120,7 +112,6 @@ function getMap(){
         });
 
         slider.click(function() {
-            //sequence
             var index = $(this).val();
             updatePropSymbols(map, attributes[index]);
         });
@@ -162,15 +153,24 @@ function getMap(){
         });
     }
 
+    function formatTimePeriod(attribute) {
+        return "<p><strong>" + formatMonth(attribute) + "&nbsp;" + getYear(attribute) + "</strong></p>";
+    }
+
+    function getYear(zhviAttr) {
+        return zhviAttr.slice(0,4);
+    }
+
     function updatePopupContent(props, attribute) {
         var attributeValue = Number(props[attribute]);
-        var header = "<p><strong>" + formatMonth(attribute) + "&nbsp;2017</strong></p>";
+        var header = formatTimePeriod(attribute);
         var cityDisplayName = "<p><strong>City:</strong> " + props.regionName + "</p>";
         var attributeDisplayText = "<p><strong>Median Home Value: </strong>" + formatCurrency(attributeValue) + "</p>";
         return header + cityDisplayName + attributeDisplayText;
     }
 
     function updatePropSymbols(map, attribute) {
+        map.closePopup();
         map.eachLayer(function(layer) {
             if (layer.feature && layer.feature.properties[attribute]) {
                 // update the layer style and popup
@@ -183,15 +183,8 @@ function getMap(){
                     offset: new L.Point(0, -radius)
                 });
 
-                // clear panel content
-                $('#info-container').html("<p><strong>" + formatMonth(attribute) + "&nbsp;2017</strong></p>");
-
-                layer.on({
-                    click: function() {
-                        $('#info-container').html(popupContent);
-                    }
-                });
-
+                var timePeriod = formatTimePeriod(attribute);
+                infoContainer.html(timePeriod);
             }
         });
     }
