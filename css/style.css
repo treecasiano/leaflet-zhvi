@@ -26,8 +26,21 @@ h1 {
 }
 
 #panel ol {
-    font-size: 12px;
+    font-size: 13px;
     text-align: left;
+}
+
+#cities-by-home-value {
+    display: none;
+}
+
+#radio-button-container {
+    text-align: left;
+}
+
+input[type="radio"],
+#radio-button-container label {
+    cursor: pointer;
 }
 
 .range-slider {

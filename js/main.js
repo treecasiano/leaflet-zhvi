@@ -7,12 +7,25 @@ function getMap(){
 
 	var infoContainer = $('#info-container');
 	var citiesByHomeValue = $('#cities-by-home-value');
+	var citiesBySize = $('#cities-by-size');
 
     myMap = L.map('map').setView(myCenterCoords, defaultZoom);
 
     L.tileLayer.provider('CartoDB.Positron').addTo(myMap);
 
     getData(myMap);
+
+    $("input[name$='citiesList']").click(function() {
+        if ($(this).val() === 'citySize') {
+            citiesByHomeValue.hide();
+            citiesBySize.show();
+        } else {
+            citiesByHomeValue.show();
+            citiesBySize.hide();
+        }
+
+    });
+
 
     function getData(map) {
         $.ajax('data/metroRegionsZHVI.geojson', {
@@ -29,6 +42,8 @@ function getMap(){
                 map.addLayer(geojsonLayer);
 
                 createSequenceControls(map, attributes);
+
+                sortCitiesByHomeValue();
 
             }
         });
@@ -58,7 +73,8 @@ function getMap(){
 
         var timePeriod = formatTimePeriod(attribute);
         infoContainer.html(timePeriod);
-        citiesByHomeValue.append(createCitiesList(feature.properties, attribute));
+        citiesBySize.append(createCityListItem(feature.properties, attribute));
+        citiesByHomeValue.append(createCityListItem(feature.properties, attribute));
 
         return layer;
     }
@@ -103,29 +119,43 @@ function getMap(){
             }
 
             slider.val(index);
+            citiesBySize.html('');
             citiesByHomeValue.html('');
             updateDisplayedData(map, attributes[index]);
         });
 
         slider.click(function() {
             var index = $(this).val();
+            citiesBySize.html('');
             citiesByHomeValue.html('');
             updateDisplayedData(map, attributes[index]);
         });
 
     }
 
-    function createCitiesList(featureProperties, attribute) {
+    function createCityListItem(featureProperties, attribute) {
         var regionName = featureProperties.regionName;
         var homeValue = formatCurrency(featureProperties[attribute]);
         var listItemText = regionName + ": " + homeValue;
-        return $('<li></li>').text(listItemText);
+        return $('<li></li>').text(listItemText).attr('data-home-value', featureProperties[attribute]);
     }
 
     function calculateSymbolRadius(attrValue) {
         var scaleFactor = .004;
         var area = attrValue * scaleFactor;
         return Math.sqrt(area / Math.PI);
+    }
+
+    function sortCitiesByHomeValue() {
+        var cityListItems = $('#cities-by-home-value li');
+        var orderedCitiesList = $('#cities-by-home-value');
+
+        // sort by attribute data-home-value assigned in createCityListItem
+        orderedCitiesList.html(cityListItems.sort(comparisonFunction));
+
+        function comparisonFunction(a, b){
+            return ($(b).data('home-value')) > ($(a).data('home-value')) ? 1 : -1;
+        }
     }
 
     function formatMonth(zhviAttr) {
@@ -184,8 +214,10 @@ function getMap(){
                 var timePeriod = formatTimePeriod(attribute);
                 infoContainer.html(timePeriod);
                 var popupContent = updatePopupContent(props, attribute);
-                citiesByHomeValue.append(createCitiesList(props, attribute));
-                console.log('citiesByHomeValue', citiesByHomeValue);
+
+                citiesBySize.append(createCityListItem(props, attribute));
+                citiesByHomeValue.append(createCityListItem(props, attribute));
+                sortCitiesByHomeValue();
                 layer.setRadius(radius);
                 layer.bindPopup(popupContent, {
                     offset: new L.Point(0, -radius)
