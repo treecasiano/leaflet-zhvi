@@ -32,16 +32,15 @@
             <div id="sequence-controls-container"></div>
             <div id="info-container"></div>
             <div id="cities-list-container">
-                <div id="radio-button-container">
-                    <input id="cities-by-size-radio-btn" type="radio" name="citiesList" checked="checked" value="citySize"  />
-                    <label for="cities-by-size-radio-btn">Cities By Size</label>
-                    <br>
-                    <input id="cities-by-home-value-radio-btn" type="radio" name="citiesList" value="cityHomeValue" />
-                    <label for="cities-by-home-value-radio-btn">Cities By Median Home Value</label>
+                <div class="tab__container">
+                    <button id="tab-btn-market-size" class="tab__btn active">Market Size</button>
+                    <button id="tab-btn-home-value" class="tab__btn">Median Home Value</button>
                 </div>
-                <ol id="cities-by-size"></ol>
-                <ol id="cities-by-home-value"></ol>
+
+                <ol id="cities-by-market-size" class="tab__content"></ol>
+                <ol id="cities-by-home-value" class="tab__content"></ol>
             </div>
+            <div><p>Data Sources: Zillow</p></div>
         </div>
 
         <script src="js/vendor/modernizr-3.5.0.min.js"></script>

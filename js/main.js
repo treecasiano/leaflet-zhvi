@@ -1,29 +1,35 @@
 function getMap(){
 
     var myMap;
-    // default values
+
     var myCenterCoords = [39.8097, -98.5556];
     var defaultZoom = 4;
 
+    /*jQuery objects*/
 	var infoContainer = $('#info-container');
 	var citiesByHomeValue = $('#cities-by-home-value');
-	var citiesBySize = $('#cities-by-size');
+	var citiesByMarketSize = $('#cities-by-market-size');
 
+	// instantiate map
     myMap = L.map('map').setView(myCenterCoords, defaultZoom);
 
     L.tileLayer.provider('CartoDB.Positron').addTo(myMap);
 
     getData(myMap);
 
-    $("input[name$='citiesList']").click(function() {
-        if ($(this).val() === 'citySize') {
+    // event listeners
+    $(".tab__btn").click(function() {
+        if ($(this).attr('id') === 'tab-btn-market-size') {
             citiesByHomeValue.hide();
-            citiesBySize.show();
-        } else {
+            citiesByMarketSize.show();
+            $(this).addClass('active');
+            $('#tab-btn-home-value').removeClass('active');
+        } else if ($(this).attr('id') === 'tab-btn-home-value') {
             citiesByHomeValue.show();
-            citiesBySize.hide();
+            citiesByMarketSize.hide();
+            $(this).addClass('active');
+            $('#tab-btn-market-size').removeClass('active');
         }
-
     });
 
 
@@ -73,7 +79,7 @@ function getMap(){
 
         var timePeriod = formatTimePeriod(attribute);
         infoContainer.html(timePeriod);
-        citiesBySize.append(createCityListItem(feature.properties, attribute));
+        citiesByMarketSize.append(createCityListItem(feature.properties, attribute));
         citiesByHomeValue.append(createCityListItem(feature.properties, attribute));
 
         return layer;
@@ -119,14 +125,14 @@ function getMap(){
             }
 
             slider.val(index);
-            citiesBySize.html('');
+            citiesByMarketSize.html('');
             citiesByHomeValue.html('');
             updateDisplayedData(map, attributes[index]);
         });
 
         slider.click(function() {
             var index = $(this).val();
-            citiesBySize.html('');
+            citiesByMarketSize.html('');
             citiesByHomeValue.html('');
             updateDisplayedData(map, attributes[index]);
         });
@@ -215,7 +221,7 @@ function getMap(){
                 infoContainer.html(timePeriod);
                 var popupContent = updatePopupContent(props, attribute);
 
-                citiesBySize.append(createCityListItem(props, attribute));
+                citiesByMarketSize.append(createCityListItem(props, attribute));
                 citiesByHomeValue.append(createCityListItem(props, attribute));
                 sortCitiesByHomeValue();
                 layer.setRadius(radius);

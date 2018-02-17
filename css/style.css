@@ -1,7 +1,7 @@
 body {
     font-family: 'Franklin Gothic Medium', sans-serif;
+    box-sizing: border-box;
 }
-
 
 h1 {
     font-size: 20px;
@@ -10,7 +10,7 @@ h1 {
 #map {
     display: inline-block;
     height: 100vh;
-    width: 75%;
+    width: 80%;
 }
 
 #panel {
@@ -18,39 +18,19 @@ h1 {
     color: white;
     display: inline-block;
     height: 100vh;
-    margin-left: -10px;
-    padding: 20px;
+    position: fixed;
+    right: 0;
     text-align: center;
-    vertical-align: top;
     width: 20%;
-}
-
-#panel ol {
-    font-size: 13px;
-    text-align: left;
 }
 
 #cities-by-home-value {
     display: none;
 }
 
-#radio-button-container {
-    text-align: left;
-}
-
-input[type="radio"],
-#radio-button-container label {
-    cursor: pointer;
-}
-
 .range-slider {
     width: 75%;
 }
-
-input[type=range]{
-    /*-webkit-appearance: none;*/
-}
-
 
 .sequence-button-container {
     display: flex;
@@ -60,7 +40,49 @@ input[type=range]{
 
 .sequence-buttons {
     color: #71a3be;
+    cursor: pointer;
     width: 100px;
+}
+
+.tab__container {
+    display: flex;
+}
+
+.tab__btn {
+    background-color: lightgray;
+    border: 2px solid transparent;
+    color: darkgray;
+    cursor: pointer;
+    flex: 1;
+    font-size: 11px;
+    outline: none;
+    padding: 8px 10px;
+    transition: .4s;
+}
+
+
+.tab__btn:hover {
+    opacity: .85;
+
+}
+
+.tab__btn.active {
+    background-color: white;
+    color: #71a3be;
+    font-weight: bold;
+}
+
+
+.tab__btn:focus {
+    border: 2px solid darksalmon;
+}
+
+.tab__content {
+    font-size: 13px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    text-align: left;
+    transition: .5s;
 }
 
 
