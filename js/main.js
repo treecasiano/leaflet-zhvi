@@ -323,18 +323,15 @@ function getMap(){
         $('.legend-control-temporal-label').html(timePeriod);
 
         var circleValues = getCircleValues(map, attribute);
-
         for (var key in circleValues) {
+            var legendText = formatCurrency(Math.round(circleValues[key]*100)/100);
             var radius = calculateSymbolRadius(circleValues[key]);
             $('#'+key).attr({
                 cy: 79-radius,
                 r: radius
             });
+            $('#'+key+'-text').text(legendText);
         }
-
-        var legendText = formatCurrency(Math.round(circleValues[key]*100)/100);
-
-        $('#'+key+'-text').text(legendText);
     }
 
     function updatePopupContent(props, attribute) {
