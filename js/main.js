@@ -105,10 +105,26 @@ function getMap(){
                 position: 'bottomleft'
             },
             onAdd: function(map) {
-                var container = L.DomUtil.create('div', 'legend-control-container');
+                var legendContainer = L.DomUtil.create('div', 'legend-control-container');
+                var temporalLabel = L.DomUtil.create('div', 'legend-control-temporal-label');
                 var timePeriod = formatTimePeriod(attributes[0]);
-                $(container).html(timePeriod);
-                return container;
+                var svg = '<svg id="attribute-legend" width="160px" height="100px">';
+                var circles = ['max', 'mean', 'min'];
+                var circleValues = getCircleValues(map, attributes[0]);
+                for (var i=0; i<circles.length; i++) {
+                    var radius = calculateSymbolRadius(circleValues[circles[i]]);
+                    var cy = 79-radius;
+                    svg += '<circle class="legend-circle" id="' + circles[i] +
+                        '" fill="#71a3be" fill-opacity="0.8" stroke="lightgray" ' +
+                        'cx="30" cy="' + cy +
+                        '" r="' + radius + '" />';
+                }
+                svg += "</svg>";
+                $(legendContainer).append($(temporalLabel));
+                $(temporalLabel).html(timePeriod);
+                $(legendContainer).append(svg);
+
+                return legendContainer;
             }
         });
 
@@ -192,6 +208,34 @@ function getMap(){
         return Math.sqrt(area / Math.PI);
     }
 
+    function getCircleValues(map, attribute) {
+        var min = Infinity,
+            max = -Infinity;
+
+        map.eachLayer(function(layer){
+            if (layer.feature) {
+                var attributeValue = Number(layer.feature.properties[attribute]);
+
+                // do not include values of 0 from the cities with no data
+                if (attributeValue < min && attributeValue !== 0) {
+                    min = attributeValue;
+                }
+
+                if (attributeValue > max) {
+                    max = attributeValue;
+                }
+            }
+        });
+
+        var mean = (max + min ) / 2;
+
+        return {
+            max: max,
+            mean: mean,
+            min: min
+        }
+    }
+
     function sortCitiesByHomeValue() {
         var cityListItems = $('#cities-by-home-value li');
         var orderedCitiesList = $('#cities-by-home-value');
@@ -241,14 +285,6 @@ function getMap(){
         return zhviAttr.slice(0,4);
     }
 
-    function updatePopupContent(props, attribute) {
-        var attributeValue = Number(props[attribute]);
-        var cityDisplayName = "<p> " + props.regionName + "</p>";
-        var label = "<p>" + formatTimePeriod(attribute) + "&nbsp;Median Home Value </p>";
-        var homeValue = "<p>" + formatCurrency(attributeValue) + "</p>";
-        return cityDisplayName + label + homeValue;
-    }
-
     function updateDisplayedData(map, attribute) {
         map.closePopup();
         // update prop symbols, popup content, and list of cities
@@ -258,10 +294,9 @@ function getMap(){
                 var props = layer.feature.properties;
                 var radius = calculateSymbolRadius(props[attribute]);
                 var timePeriod = formatTimePeriod(attribute);
-                infoContainer.html(timePeriod);
-                $('.legend-control-container').html(timePeriod);
                 var popupContent = updatePopupContent(props, attribute);
-
+                infoContainer.html(timePeriod);
+                updateLegend(map, attribute, timePeriod);
                 citiesByMarketSize.append(createCityListItem(props, attribute));
                 citiesByHomeValue.append(createCityListItem(props, attribute));
                 sortCitiesByHomeValue();
@@ -271,6 +306,29 @@ function getMap(){
                 });
             }
         });
+    }
+
+    function updateLegend(map, attribute, timePeriod) {
+
+        $('.legend-control-temporal-label').html(timePeriod);
+
+        var circleValues = getCircleValues(map, attribute);
+
+        for (var key in circleValues) {
+            var radius = calculateSymbolRadius(circleValues[key]);
+            $('#'+key).attr({
+                cy: 79-radius,
+                r: radius
+            });
+        }
+    }
+
+    function updatePopupContent(props, attribute) {
+        var attributeValue = Number(props[attribute]);
+        var cityDisplayName = "<p> " + props.regionName + "</p>";
+        var label = "<p>" + formatTimePeriod(attribute) + "&nbsp;Median Home Value </p>";
+        var homeValue = "<p>" + formatCurrency(attributeValue) + "</p>";
+        return cityDisplayName + label + homeValue;
     }
 }
 
