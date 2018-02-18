@@ -109,19 +109,41 @@ function getMap(){
             step: 1
         });
         sequenceControlsContainer.append('<div id="sequence-button-container"></div>');
-        $('#sequence-button-container').append('<button id="reverse-button" class="sequence-buttons" aria-label="Reverse"></button>');
-        $('#sequence-button-container').append('<button id="forward-button" class="sequence-buttons" aria-label="Forward"></button>');
-        $('#reverse-button').append('<i class="fas fa-step-backward" aria-hidden="true"></i>');
-        $('#forward-button').append('<i class="fas fa-step-forward" aria-hidden="true"></i>');
+        var sequenceButtonContainer = $('#sequence-button-container');
+        sequenceButtonContainer.append('<button id="fast-reverse-button" class="sequence-buttons" aria-label="Fast Reverse"></button>');
+        sequenceButtonContainer.append('<button id="reverse-button" class="sequence-buttons" aria-label="Reverse"></button>');
+        sequenceButtonContainer.append('<button id="forward-button" class="sequence-buttons" aria-label="Forward"></button>');
+        sequenceButtonContainer.append('<button id="fast-forward-button" class="sequence-buttons" aria-label="Fast Forward"></button>');
+        $('#fast-reverse-button')
+            .attr('title', 'Reverse by Year')
+            .append('<i class="fas fa-fast-backward" aria-hidden="true"></i>');
+        $('#reverse-button')
+            .attr('title', 'Reverse by Month')
+            .append('<i class="fas fa-step-backward" aria-hidden="true"></i>');
+        $('#forward-button')
+            .attr('title', 'Forward by Month')
+            .append('<i class="fas fa-step-forward" aria-hidden="true"></i>');
+        $('#fast-forward-button')
+            .attr('title', 'Forward by Year').append('<i class="fas fa-fast-forward" aria-hidden="true"></i>');
 
         $('.sequence-buttons').click(function() {
-            var index = slider.val();
+            var index = parseInt(slider.val());
+            var numOfSteps = attributes.length - 1;
+
             if ($(this).attr('id') === 'forward-button') {
                 index++;
-                index = index > attributes.length - 1 ? 0 : index;
+                index = index > numOfSteps ? 0 : index;
+            } else if ($(this).attr('id') === 'fast-forward-button') {
+                index = index + 12;
+                var newFastForwardIndex = index - numOfSteps - 1;
+                index = index > numOfSteps ? newFastForwardIndex : index;
             } else if ($(this).attr('id') === 'reverse-button') {
                 index--;
-                index = index < 0 ? attributes.length - 1  : index;
+                index = index < 0 ? numOfSteps  : index;
+            } else if ($(this).attr('id') === 'fast-reverse-button') {
+                index = index - 12;
+                var newFastReverseIndex = numOfSteps + index + 1;
+                index = index < 0 ? newFastReverseIndex  : index;
             }
 
             slider.val(index);
