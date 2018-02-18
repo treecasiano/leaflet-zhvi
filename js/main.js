@@ -207,7 +207,7 @@ function getMap(){
 
     function createCityListItem(featureProperties, attribute) {
         var regionName = featureProperties.regionName;
-        var homeValue = formatCurrency(featureProperties[attribute]);
+        var homeValue = formatCurrency(featureProperties[attribute]) || "no data";
         var listItemText = regionName + ": " + homeValue;
         return $('<li></li>').text(listItemText).attr('data-home-value', featureProperties[attribute]);
     }
@@ -299,7 +299,7 @@ function getMap(){
         map.closePopup();
         // update prop symbols, popup content, and list of cities
         map.eachLayer(function(layer) {
-            if (layer.feature && layer.feature.properties[attribute]) {
+            if (layer.feature && layer.feature.properties) {
                 // update the layer style and popup
                 var props = layer.feature.properties;
                 var radius = calculateSymbolRadius(props[attribute]);
@@ -335,10 +335,10 @@ function getMap(){
     }
 
     function updatePopupContent(props, attribute) {
-        var attributeValue = Number(props[attribute]);
+        var attributeValue = formatCurrency(Number(props[attribute]));
         var cityDisplayName = "<p> " + props.regionName + "</p>";
         var label = "<p>" + formatTimePeriod(attribute) + "&nbsp;Median Home Value </p>";
-        var homeValue = "<p>" + formatCurrency(attributeValue) + "</p>";
+        var homeValue = "<p>" + attributeValue + "</p>";
         return cityDisplayName + label + homeValue;
     }
 }
