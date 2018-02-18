@@ -10,7 +10,7 @@ h1 {
 #map {
     display: inline-block;
     height: 100vh;
-    width: 80%;
+    width: 75%;
 }
 
 #panel {
@@ -21,7 +21,7 @@ h1 {
     position: fixed;
     right: 0;
     text-align: center;
-    width: 20%;
+    width: 25%;
 }
 
 #cities-by-home-value {
@@ -78,7 +78,7 @@ h1 {
 }
 
 .tab__content {
-    font-size: 13px;
+    font-size: 14px;
     padding-top: 10px;
     padding-bottom: 20px;
     text-align: left;
@@ -88,7 +88,7 @@ h1 {
 
 .legend-control-container {
     background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid gray;
+    border: 1px solid lightgray;
     color: #71a3be;
     font-size: 20px;
     line-height: 45px;
@@ -101,17 +101,19 @@ h1 {
 
 .leaflet-popup-content {
     margin: 15px;
+    text-align: center;
 }
 
 .leaflet-popup-content p {
-    color: white;
-    font-size: 18px;
+    color: #71a3be;
+    font-size: 12px;
     margin: 2px 0;
     max-width: 275px;
 }
 
 .leaflet-popup-content-wrapper {
-    background: #71a3be;
+    background: white;
+    border: 1px solid lightgray;
     border-radius: 0;
 }
 

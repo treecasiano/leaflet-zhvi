@@ -234,7 +234,7 @@ function getMap(){
     }
 
     function formatTimePeriod(attribute) {
-        return "<p><strong>" + formatMonth(attribute) + "&nbsp;" + getYear(attribute) + "</strong></p>";
+        return formatMonth(attribute) + "&nbsp;" + getYear(attribute);
     }
 
     function getYear(zhviAttr) {
@@ -243,10 +243,10 @@ function getMap(){
 
     function updatePopupContent(props, attribute) {
         var attributeValue = Number(props[attribute]);
-        var header = formatTimePeriod(attribute);
-        var cityDisplayName = "<p><strong>City:</strong> " + props.regionName + "</p>";
-        var attributeDisplayText = "<p><strong>Median Home Value: </strong>" + formatCurrency(attributeValue) + "</p>";
-        return header + cityDisplayName + attributeDisplayText;
+        var cityDisplayName = "<p> " + props.regionName + "</p>";
+        var label = "<p>" + formatTimePeriod(attribute) + "&nbsp;Median Home Value </p>";
+        var homeValue = "<p>" + formatCurrency(attributeValue) + "</p>";
+        return cityDisplayName + label + homeValue;
     }
 
     function updateDisplayedData(map, attribute) {
