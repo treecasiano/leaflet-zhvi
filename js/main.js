@@ -51,6 +51,8 @@ function getMap(){
 
                 sortCitiesByHomeValue();
 
+                createLegend(map, attributes);
+
             }
         });
     }
@@ -95,6 +97,22 @@ function getMap(){
             }
         }
         return attributes;
+    }
+
+    function createLegend(map, attributes) {
+        var LegendControl = L.Control.extend({
+            options: {
+                position: 'bottomleft'
+            },
+            onAdd: function(map) {
+                var container = L.DomUtil.create('div', 'legend-control-container');
+                var timePeriod = formatTimePeriod(attributes[0]);
+                $(container).html(timePeriod);
+                return container;
+            }
+        });
+
+        map.addControl(new LegendControl());
     }
 
     function createSequenceControls(map, attributes) {
@@ -241,6 +259,7 @@ function getMap(){
                 var radius = calculateSymbolRadius(props[attribute]);
                 var timePeriod = formatTimePeriod(attribute);
                 infoContainer.html(timePeriod);
+                $('.legend-control-container').html(timePeriod);
                 var popupContent = updatePopupContent(props, attribute);
 
                 citiesByMarketSize.append(createCityListItem(props, attribute));
