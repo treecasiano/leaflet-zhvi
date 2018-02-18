@@ -107,22 +107,32 @@ function getMap(){
             onAdd: function(map) {
                 var legendContainer = L.DomUtil.create('div', 'legend-control-container');
                 var temporalLabel = L.DomUtil.create('div', 'legend-control-temporal-label');
+                var svgContainer = L.DomUtil.create('div', 'legend-svg-container');
                 var timePeriod = formatTimePeriod(attributes[0]);
-                var svg = '<svg id="attribute-legend" width="160px" height="100px">';
+                var svg = '<svg id="attribute-legend" width="300px" height="100px">';
                 var circles = ['max', 'mean', 'min'];
                 var circleValues = getCircleValues(map, attributes[0]);
+                var yVals = [25, 50, 75];
                 for (var i=0; i<circles.length; i++) {
                     var radius = calculateSymbolRadius(circleValues[circles[i]]);
                     var cy = 79-radius;
+                    var legendText = formatCurrency(Math.round(circleValues[circles[i]]*100)/100);
+                    var y = yVals[i];
+                    // circle string
                     svg += '<circle class="legend-circle" id="' + circles[i] +
                         '" fill="#71a3be" fill-opacity="0.8" stroke="lightgray" ' +
-                        'cx="30" cy="' + cy +
+                        'cx="50" cy="' + cy +
                         '" r="' + radius + '" />';
+
+                    // text string
+                    svg += '<text class="legend-text" fill="#71a3be" id="' + circles[i] + '-text" x="100" y="' + y + '">' + legendText + '</text>'
                 }
                 svg += "</svg>";
+
                 $(legendContainer).append($(temporalLabel));
                 $(temporalLabel).html(timePeriod);
-                $(legendContainer).append(svg);
+                $(legendContainer).append($(svgContainer));
+                $(svgContainer).append(svg);
 
                 return legendContainer;
             }
@@ -321,6 +331,10 @@ function getMap(){
                 r: radius
             });
         }
+
+        var legendText = formatCurrency(Math.round(circleValues[key]*100)/100);
+
+        $('#'+key+'-text').text(legendText);
     }
 
     function updatePopupContent(props, attribute) {

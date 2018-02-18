@@ -89,14 +89,19 @@ h1 {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid lightgray;
     color: #71a3be;
-    font-size: 20px;
+    font-size:16px;
     line-height: 45px;
-    padding: 10px;
+    padding: 25px;
     text-align: center;
-    width: 250px;
+    width: 200px;
 }
 
-/*leaflet overrides*/
+.legend-control-temporal-label {
+    font-size: 24px;
+    width: auto;
+}
+
+    /*leaflet overrides*/
 
 .leaflet-popup-content {
     margin: 15px;
