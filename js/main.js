@@ -6,15 +6,24 @@ function getMap(){
     var defaultZoom = 4;
 
     /*jQuery objects*/
-	var infoContainer = $('#info-container');
-	var citiesByHomeValue = $('#cities-by-home-value');
+    var infoContainer = $('#info-container');
+    var citiesByHomeValue = $('#cities-by-home-value');
 	var citiesByMarketSize = $('#cities-by-market-size');
 
-	// instantiate map
-    myMap = L.map('map').setView(myCenterCoords, defaultZoom);
+    /*tile layers*/
+    var cartoDB = L.tileLayer.provider('CartoDB.Positron');
+    var openStreetMap = L.tileLayer.provider('OpenStreetMap.BlackAndWhite');
+    var stamenTonerLite = L.tileLayer.provider('Stamen.TonerLite');
+    var baseMaps = {
+        '<span class="tileLayer__text">CartoDB Positron</span>': cartoDB,
+        '<span class="tileLayer__text">Open Street Map</span>': openStreetMap,
+        '<span class="tileLayer__text">Stamen Toner Lite</span>': stamenTonerLite
+    };
 
+    // instantiate map
+    myMap = L.map('map', {layers: [cartoDB]}).setView(myCenterCoords, defaultZoom);
     L.tileLayer.provider('CartoDB.Positron').addTo(myMap);
-
+    L.control.layers(baseMaps).addTo(myMap);
     getData(myMap);
 
     // event listeners

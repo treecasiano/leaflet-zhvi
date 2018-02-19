@@ -116,6 +116,20 @@ h1 {
     max-width: 275px;
 }
 
+.tileLayer__text {
+    color: #71a3be;
+}
+
+.leaflet-control-layers {
+    border-radius: 0;
+    outline: none;
+}
+
+.leaflet-control-zoom {
+    border-radius: 0;
+    outline: none;
+}
+
 .leaflet-popup-content-wrapper {
     background: white;
     border: 1px solid lightgray;
