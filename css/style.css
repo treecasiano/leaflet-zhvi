@@ -39,6 +39,7 @@ h1 {
 }
 
 .sequence-buttons {
+    border-radius: 0;
     color: #71a3be;
     cursor: pointer;
     width: 50px;
@@ -74,7 +75,7 @@ h1 {
 
 
 .tab__btn:focus {
-    border: 2px solid darksalmon;
+    border: 1px solid darksalmon;
 }
 
 .tab__content {
@@ -87,7 +88,7 @@ h1 {
 
 .legend-control-container {
     background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid lightgray;
+    border: 1px solid gray;
     color: #71a3be;
     font-size:12px;
     line-height: 20px;
@@ -120,19 +121,21 @@ h1 {
     color: #71a3be;
 }
 
+.leaflet-control {
+    border: 1px solid gray;
+}
+
 .leaflet-control-layers {
     border-radius: 0;
-    outline: none;
 }
 
 .leaflet-control-zoom {
     border-radius: 0;
-    outline: none;
 }
 
 .leaflet-popup-content-wrapper {
     background: white;
-    border: 1px solid lightgray;
+    border: 1px solid gray;
     border-radius: 0;
 }
 
