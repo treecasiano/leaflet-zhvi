@@ -116,7 +116,7 @@ function getMap(){
                 for (var i=0; i<circles.length; i++) {
                     var radius = calculateSymbolRadius(circleValues[circles[i]]);
                     var cy = 79-radius;
-                    var legendText = formatCurrency(Math.round(circleValues[circles[i]]*100)/100);
+                    var legendText = formatCurrency(Math.round(circleValues[circles[i]]*100)/100) + '&nbsp;' +  circles[i];
                     var y = yVals[i];
                     // circle string
                     svg += '<circle class="legend-circle" id="' + circles[i] +
@@ -324,7 +324,7 @@ function getMap(){
 
         var circleValues = getCircleValues(map, attribute);
         for (var key in circleValues) {
-            var legendText = formatCurrency(Math.round(circleValues[key]*100)/100);
+            var legendText = formatCurrency(Math.round(circleValues[key]*100)/100) + ' ' +  key;
             var radius = calculateSymbolRadius(circleValues[key]);
             $('#'+key).attr({
                 cy: 79-radius,
