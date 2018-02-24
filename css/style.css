@@ -1,6 +1,7 @@
 body {
     font-family: 'Franklin Gothic Medium', sans-serif;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 h1 {
