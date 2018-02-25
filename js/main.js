@@ -10,6 +10,7 @@ function getMap(){
     var infoPanel = $('#panel');
     var citiesByHomeValue = $('#cities-by-home-value');
 	var citiesByMarketSize = $('#cities-by-market-size');
+	var listTypeText = $('#list-type-text');
 
     /*tile layers*/
     var cartoDB = L.tileLayer.provider('CartoDB.Positron');
@@ -35,11 +36,15 @@ function getMap(){
             citiesByMarketSize.show();
             $(this).addClass('active');
             $('#tab-btn-home-value').removeClass('active');
+            listTypeText.html('');
+            listTypeText.html('Market Size');
         } else if ($(this).attr('id') === 'tab-btn-home-value') {
             citiesByHomeValue.show();
             citiesByMarketSize.hide();
             $(this).addClass('active');
             $('#tab-btn-market-size').removeClass('active');
+            listTypeText.html('');
+            listTypeText.html('Median Home Value');
         }
     });
 
@@ -144,7 +149,7 @@ function getMap(){
                 var svgContainer = L.DomUtil.create('div', 'legend-svg-container');
                 var infoButtonContainer = L.DomUtil.create('div', 'info-button-container');
                 $(infoButtonContainer).attr("id", 'info-button-container');
-                $(infoButtonContainer).html('<button title="View List of Cities<" id="info-button"><i class="fas fa-info-circle"></i></button>');
+                $(infoButtonContainer).html('<button title="View List of Cities" id="info-button"><i class="fas fa-info-circle"></i></button>');
                 var timePeriod = formatTimePeriod(attributes[0]);
                 var svg = '<svg id="attribute-legend" width="200px" height="100px">';
                 var circles = ['max', 'mean', 'min'];

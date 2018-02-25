@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
+        <title>Median Home Values of Single Family Residences</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -33,14 +33,14 @@
         <div id="map"></div>
         <div id="panel">
             <button id="panel-close"><i class="fas fa-window-close"></i></button>
-            <div id="info-container"></div>
-            <br>
             <div id="cities-list-container">
+                <div>American Metro Regions</div>
+                <div>Sorted by <span id="list-type-text">Market Size</span></div>
+                <div id="info-container"></div>
                 <div class="tab__container">
                     <button id="tab-btn-market-size" class="tab__btn active">Market Size</button>
                     <button id="tab-btn-home-value" class="tab__btn">Median Home Value</button>
                 </div>
-
                 <ol id="cities-by-market-size" class="tab__content"></ol>
                 <ol id="cities-by-home-value" class="tab__content"></ol>
             </div>
