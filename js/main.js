@@ -33,14 +33,14 @@ function getMap(){
     $(".tab__btn").click(function() {
         if ($(this).attr('id') === 'tab-btn-market-size') {
             citiesByHomeValue.hide();
-            citiesByMarketSize.show();
+            citiesByMarketSize.slideDown('fast');
             $(this).addClass('active');
             $('#tab-btn-home-value').removeClass('active');
             listTypeText.html('');
             listTypeText.html('Market Size');
         } else if ($(this).attr('id') === 'tab-btn-home-value') {
-            citiesByHomeValue.show();
             citiesByMarketSize.hide();
+            citiesByHomeValue.slideDown('fast');
             $(this).addClass('active');
             $('#tab-btn-market-size').removeClass('active');
             listTypeText.html('');
@@ -295,11 +295,11 @@ function getMap(){
     }
 
     function showInfoPanel() {
-        infoPanel.show();
+        infoPanel.fadeIn();
     }
 
     function hideInfoPanel() {
-        infoPanel.hide();
+        infoPanel.fadeOut('slow');
     }
 
     function sortCitiesByHomeValue() {

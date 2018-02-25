@@ -9,12 +9,6 @@ body {
     width: 100%;
 }
 
-
-/*TODO: increase height and position of panel on large screens*/
-/*TODO: allow user to toggle info windows on and off with info icon*/
-/*TODO: style tabs to look more like folder tabs*/
-
-
 #panel {
     background-color: rgba(255, 255, 255, .75);
     border: 1px solid gray;
@@ -125,12 +119,13 @@ body {
 
 .tab__btn.active {
     background-color: white;
+    border-bottom: 2px solid coral;
     color: #71a3be;
     font-weight: bold;
 }
 
 .tab__btn:focus {
-    border: 1px solid coral;
+    border-bottom: 2px solid coral;
 }
 
 .tab__content {
