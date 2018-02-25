@@ -47,7 +47,7 @@ body {
 }
 
 #panel-close:hover {
-    color: coral;
+    color: darksalmon;
     cursor: pointer;
 }
 
@@ -119,13 +119,13 @@ body {
 
 .tab__btn.active {
     background-color: white;
-    border-bottom: 2px solid coral;
+    border-bottom: 2px solid darksalmon;
     color: #71a3be;
     font-weight: bold;
 }
 
 .tab__btn:focus {
-    border-bottom: 2px solid coral;
+    border-bottom: 2px solid darksalmon;
 }
 
 .tab__content {
@@ -168,7 +168,7 @@ body {
 }
 
 .info-button-container button:focus {
-    color: coral;
+    color: darksalmon;
 }
 
 .legend-control-temporal-label {
