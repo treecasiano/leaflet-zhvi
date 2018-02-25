@@ -56,14 +56,31 @@ function getMap(){
 
                 map.addLayer(geojsonLayer);
 
-                createSequenceControls(map, attributes);
-
                 sortCitiesByHomeValue();
+
+                addSequenceControlsToMap(map, attributes);
 
                 createLegend(map, attributes);
 
             }
         });
+    }
+
+    function addSequenceControlsToMap(map, attributes) {
+        var SequenceControl = L.Control.extend({
+            options: {
+                position: 'bottomleft'
+            },
+            onAdd: function(map) {
+                var sequenceControlsContainer = L.DomUtil.create('div', 'legend-control-container');
+                $(sequenceControlsContainer).attr("id", 'sequence-controls-container');
+                return sequenceControlsContainer;
+            }
+
+        });
+
+        map.addControl(new SequenceControl());
+        createSequenceControls(map, attributes);
     }
 
     function pointToLayer(feature, latlng, attributes) {
@@ -121,12 +138,12 @@ function getMap(){
                 var svg = '<svg id="attribute-legend" width="300px" height="100px">';
                 var circles = ['max', 'mean', 'min'];
                 var circleValues = getCircleValues(map, attributes[0]);
-                var yVals = [25, 50, 75];
+                var yValues = [25, 50, 75];
                 for (var i=0; i<circles.length; i++) {
                     var radius = calculateSymbolRadius(circleValues[circles[i]]);
                     var cy = 79-radius;
                     var legendText = formatCurrency(Math.round(circleValues[circles[i]]*100)/100) + '&nbsp;' +  circles[i];
-                    var y = yVals[i];
+                    var y = yValues[i];
                     // circle string
                     svg += '<circle class="legend-circle" id="' + circles[i] +
                         '" fill="#71a3be" fill-opacity="0.8" stroke="lightgray" ' +
