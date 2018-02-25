@@ -74,6 +74,9 @@ function getMap(){
             onAdd: function(map) {
                 var sequenceControlsContainer = L.DomUtil.create('div', 'legend-control-container');
                 $(sequenceControlsContainer).attr("id", 'sequence-controls-container');
+                $(sequenceControlsContainer).on('mousedown dblclick', function(e){
+                    L.DomEvent.stopPropagation(e);
+                });
                 return sequenceControlsContainer;
             }
 
@@ -159,6 +162,9 @@ function getMap(){
                 $(temporalLabel).html(timePeriod);
                 $(legendContainer).append($(svgContainer));
                 $(svgContainer).append(svg);
+                $(legendContainer).on('mousedown dblclick', function(e){
+                    L.DomEvent.stopPropagation(e);
+                });
 
                 return legendContainer;
             }
