@@ -98,6 +98,7 @@ body {
 
 .tab__container {
     display: flex;
+    margin-top: 5px;
 }
 
 .tab__btn {

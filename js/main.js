@@ -26,6 +26,7 @@ function getMap(){
     myMap = L.map('map', {layers: [cartoDB]}).setView(myCenterCoords, defaultZoom);
     L.tileLayer.provider('CartoDB.Positron').addTo(myMap);
     L.control.layers(baseMaps).addTo(myMap);
+    createAdditionalAttributionInfo(myMap);
     myMap.zoomControl.setPosition('bottomright');
     getData(myMap);
 
@@ -67,9 +68,7 @@ function getMap(){
                 map.addLayer(geojsonLayer);
 
                 sortCitiesByHomeValue();
-
                 addSequenceControlsToMap(map, attributes);
-
                 createLegend(map, attributes);
 
             }
@@ -81,7 +80,7 @@ function getMap(){
             options: {
                 position: 'bottomleft'
             },
-            onAdd: function(map) {
+            onAdd: function() {
                 var sequenceControlsContainer = L.DomUtil.create('div', 'legend-control-container');
                 $(sequenceControlsContainer).attr("id", 'sequence-controls-container');
                 $(sequenceControlsContainer).on('mousedown dblclick pointerdown', function(e){
@@ -187,6 +186,27 @@ function getMap(){
         $('#info-button').click(function() {
             showInfoPanel();
         });
+    }
+
+    function createAdditionalAttributionInfo(map) {
+        var AdditionalAttributionInfo = L.Control.extend({
+            options: {
+                position: 'bottomright'
+            },
+            onAdd: function() {
+                var additionalInfo = L.DomUtil.create('div', 'leaflet-control-attribution');
+                $(additionalInfo).append('<div>Data source: <a href="https://www.zillow.com/research/data/">&nbsp;Zillow Home Value Index</a></div>');
+                $(additionalInfo).append('<div>Map author: <a href="http://treecasiano.com/">&nbsp;Tree Casiano</a></div>');
+                $(additionalInfo).append('<div>View this code on <a href="https://github.com/treecasiano/leaflet-zhvi">&nbsp;GitHub!</a></div>');
+                $(additionalInfo).on('mousedown dblclick', function(e){
+                    L.DomEvent.stopPropagation(e);
+                });
+
+                return additionalInfo;
+            }
+        });
+
+        map.addControl(new AdditionalAttributionInfo());
     }
 
     function createSequenceControls(map, attributes) {
