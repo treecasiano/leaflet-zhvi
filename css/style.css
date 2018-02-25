@@ -4,6 +4,55 @@ body {
     overflow: hidden;
 }
 
+#map {
+    height: 100vh;
+    width: 100%;
+}
+
+
+/*TODO: increase height and position of panel on large screens*/
+/*TODO: allow user to toggle info windows on and off with info icon*/
+/*TODO: style tabs to look more like folder tabs*/
+
+
+#panel {
+    background-color: rgba(255, 255, 255, .75);
+    border: 1px solid gray;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+    color: #71a3be;
+    display: none;
+    height: 60vh;
+    top: 85px;
+    right: 50%;
+    overflow: scroll;
+    padding: 10px 10px 0 10px;
+    position: fixed;
+    text-align: center;
+    z-index: 9999;
+}
+
+@media (min-height: 600px) {
+    #panel {
+        height: 75vh;
+    }
+}
+
+#cities-by-home-value {
+    display: none;
+}
+
+#panel-close {
+    background: transparent;
+    border: none;
+    color: #71a3be;
+    float: right;
+}
+
+#panel-close:hover {
+    color: coral;
+    cursor: pointer;
+}
+
 .mainHeader {
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid gray;
@@ -29,37 +78,6 @@ body {
     display: inline-block;
     font-style: italic;
     font-size: 14px;
-}
-
-
-#map {
-    height: 100vh;
-    width: 100%;
-}
-
-
-/*TODO: increase height and position of panel on large screens*/
-/*TODO: allow user to toggle info windows on and off with info icon*/
-/*TODO: style tabs to look more like folder tabs*/
-
-
-#panel {
-    background-color: rgba(255, 255, 255, .75);
-    border: 1px solid gray;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-    color: #71a3be;
-    height: 60vh;
-    top: 85px;
-    right: 45px;
-    overflow: scroll;
-    padding: 10px 10px 0 10px;
-    position: fixed;
-    text-align: center;
-    z-index: 9999;
-}
-
-#cities-by-home-value {
-    display: none;
 }
 
 .range-slider {
@@ -96,7 +114,6 @@ body {
     transition: .4s;
 }
 
-
 .tab__btn:hover {
     opacity: .85;
 
@@ -108,9 +125,8 @@ body {
     font-weight: bold;
 }
 
-
 .tab__btn:focus {
-    border: 1px solid darksalmon;
+    border: 1px solid coral;
 }
 
 .tab__content {
@@ -132,7 +148,32 @@ body {
     width: 200px;
 }
 
+.info-button-container {
+    /*leaflet override*/
+    font-size: 18px;
+    text-align: center;
+}
+
+.info-button-container button {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #71a3be;
+    float: right;
+    margin: 0;
+    outline: none;
+}
+
+.info-button-container button:hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
+.info-button-container button:focus {
+    color: coral;
+}
+
 .legend-control-temporal-label {
+    float: left;
     font-weight: bold;
     font-size: 18px;
     width: auto;
@@ -154,6 +195,11 @@ body {
 
 .tileLayer__text {
     color: #71a3be;
+}
+
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+    border: 1px solid gray;
 }
 
 .leaflet-control {

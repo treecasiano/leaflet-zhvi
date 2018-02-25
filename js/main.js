@@ -7,6 +7,7 @@ function getMap(){
 
     /*jQuery objects*/
     var infoContainer = $('#info-container');
+    var infoPanel = $('#panel');
     var citiesByHomeValue = $('#cities-by-home-value');
 	var citiesByMarketSize = $('#cities-by-market-size');
 
@@ -42,6 +43,9 @@ function getMap(){
         }
     });
 
+    $('#panel-close').click(function() {
+        hideInfoPanel();
+    });
 
     function getData(map) {
         $.ajax('data/metroRegionsZHVI.geojson', {
@@ -138,6 +142,9 @@ function getMap(){
                 var legendContainer = L.DomUtil.create('div', 'legend-control-container');
                 var temporalLabel = L.DomUtil.create('div', 'legend-control-temporal-label');
                 var svgContainer = L.DomUtil.create('div', 'legend-svg-container');
+                var infoButtonContainer = L.DomUtil.create('div', 'info-button-container');
+                $(infoButtonContainer).attr("id", 'info-button-container');
+                $(infoButtonContainer).html('<button title="View List of Cities<" id="info-button"><i class="fas fa-info-circle"></i></button>');
                 var timePeriod = formatTimePeriod(attributes[0]);
                 var svg = '<svg id="attribute-legend" width="200px" height="100px">';
                 var circles = ['max', 'mean', 'min'];
@@ -158,7 +165,7 @@ function getMap(){
                     svg += '<text class="legend-text" fill="#71a3be" id="' + circles[i] + '-text" x="100" y="' + y + '">' + legendText + '</text>'
                 }
                 svg += "</svg>";
-
+                $(legendContainer).append($(infoButtonContainer));
                 $(legendContainer).append($(temporalLabel));
                 $(temporalLabel).html(timePeriod);
                 $(legendContainer).append($(svgContainer));
@@ -172,6 +179,9 @@ function getMap(){
         });
 
         map.addControl(new LegendControl());
+        $('#info-button').click(function() {
+            showInfoPanel();
+        });
     }
 
     function createSequenceControls(map, attributes) {
@@ -277,6 +287,14 @@ function getMap(){
             mean: mean,
             min: min
         }
+    }
+
+    function showInfoPanel() {
+        infoPanel.show();
+    }
+
+    function hideInfoPanel() {
+        infoPanel.hide();
     }
 
     function sortCitiesByHomeValue() {
