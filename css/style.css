@@ -4,25 +4,58 @@ body {
     overflow: hidden;
 }
 
-h1 {
-    font-size: 20px;
+.mainHeader {
+    background-color: rgba(255, 255, 255, 1);
+    border: 1px solid gray;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+    color: #71a3be;
+    left: 10px;
+    margin: 10px auto;
+    max-width: 70%;
+    padding: 0 10px;
+    position: fixed;
+    z-index: 9999;
 }
+
+.mainHeader h1 {
+    font-size: 22px;
+    line-height: 1;
+}
+
+/*TODO(): increase font-size for large screens and change text from inline-block to block*/
+
+.mainHeader--dates,
+.mainHeader--info {
+    display: inline-block;
+    font-style: italic;
+    font-size: 14px;
+}
+
 
 #map {
-    display: inline-block;
     height: 100vh;
-    width: 75%;
+    width: 100%;
 }
 
+
+/*TODO: increase height and position of panel on large screens*/
+/*TODO: allow user to toggle info windows on and off with info icon*/
+/*TODO: style tabs to look more like folder tabs*/
+
+
 #panel {
-    background: #71a3be;
-    color: white;
-    display: inline-block;
-    height: 100vh;
+    background-color: rgba(255, 255, 255, .75);
+    border: 1px solid gray;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+    color: #71a3be;
+    height: 60vh;
+    top: 85px;
+    right: 45px;
+    overflow: scroll;
+    padding: 10px 10px 0 10px;
     position: fixed;
-    right: 0;
     text-align: center;
-    width: 25%;
+    z-index: 9999;
 }
 
 #cities-by-home-value {
@@ -30,7 +63,7 @@ h1 {
 }
 
 .range-slider {
-    width: 75%;
+    width: 60%;
 }
 
 .sequence-button-container {
@@ -43,7 +76,8 @@ h1 {
     border-radius: 0;
     color: #71a3be;
     cursor: pointer;
-    width: 50px;
+    width: 40px;
+    margin: 3px;
 }
 
 .tab__container {
@@ -91,16 +125,16 @@ h1 {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid gray;
     color: #71a3be;
-    font-size:12px;
-    line-height: 20px;
-    padding: 15px;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 14px;
     text-align: center;
     width: 200px;
 }
 
 .legend-control-temporal-label {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 18px;
     width: auto;
 }
 

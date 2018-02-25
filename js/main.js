@@ -2,8 +2,8 @@ function getMap(){
 
     var myMap;
 
-    var myCenterCoords = [39.8097, -98.5556];
-    var defaultZoom = 4;
+    var myCenterCoords = [38.8097, -98.5556];
+    var defaultZoom = 5;
 
     /*jQuery objects*/
     var infoContainer = $('#info-container');
@@ -24,6 +24,7 @@ function getMap(){
     myMap = L.map('map', {layers: [cartoDB]}).setView(myCenterCoords, defaultZoom);
     L.tileLayer.provider('CartoDB.Positron').addTo(myMap);
     L.control.layers(baseMaps).addTo(myMap);
+    myMap.zoomControl.setPosition('bottomright');
     getData(myMap);
 
     // event listeners
@@ -74,7 +75,7 @@ function getMap(){
             onAdd: function(map) {
                 var sequenceControlsContainer = L.DomUtil.create('div', 'legend-control-container');
                 $(sequenceControlsContainer).attr("id", 'sequence-controls-container');
-                $(sequenceControlsContainer).on('mousedown dblclick', function(e){
+                $(sequenceControlsContainer).on('mousedown dblclick pointerdown', function(e){
                     L.DomEvent.stopPropagation(e);
                 });
                 return sequenceControlsContainer;
@@ -138,7 +139,7 @@ function getMap(){
                 var temporalLabel = L.DomUtil.create('div', 'legend-control-temporal-label');
                 var svgContainer = L.DomUtil.create('div', 'legend-svg-container');
                 var timePeriod = formatTimePeriod(attributes[0]);
-                var svg = '<svg id="attribute-legend" width="300px" height="100px">';
+                var svg = '<svg id="attribute-legend" width="200px" height="100px">';
                 var circles = ['max', 'mean', 'min'];
                 var circleValues = getCircleValues(map, attributes[0]);
                 var yValues = [25, 50, 75];
