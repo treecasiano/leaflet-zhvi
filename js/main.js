@@ -174,7 +174,7 @@ function getMap(){
                 $(temporalLabel).html(timePeriod);
                 $(legendContainer).append($(svgContainer));
                 $(svgContainer).append(svg);
-                $(legendContainer).on('mousedown dblclick', function(e){
+                $(legendContainer).on('mousedown dblclick pointerdown', function(e){
                     L.DomEvent.stopPropagation(e);
                 });
 
@@ -198,7 +198,7 @@ function getMap(){
                 $(additionalInfo).append('<div>Data source: <a href="https://www.zillow.com/research/data/">&nbsp;Zillow Home Value Index</a></div>');
                 $(additionalInfo).append('<div>Map author: <a href="http://treecasiano.com/">&nbsp;Tree Casiano</a></div>');
                 $(additionalInfo).append('<div>View this code on <a href="https://github.com/treecasiano/leaflet-zhvi">&nbsp;GitHub!</a></div>');
-                $(additionalInfo).on('mousedown dblclick', function(e){
+                $(additionalInfo).on('mousedown dblclick pointerdown', function(e){
                     L.DomEvent.stopPropagation(e);
                 });
 
