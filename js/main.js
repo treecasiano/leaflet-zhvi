@@ -184,7 +184,7 @@ function getMap(){
 
         map.addControl(new LegendControl());
         $('#info-button').click(function() {
-            showInfoPanel();
+            infoPanel.fadeToggle('slow');
         });
     }
 
@@ -312,10 +312,6 @@ function getMap(){
             mean: mean,
             min: min
         }
-    }
-
-    function showInfoPanel() {
-        infoPanel.fadeIn();
     }
 
     function hideInfoPanel() {
