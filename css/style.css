@@ -43,7 +43,7 @@ body {
     color: #71a3be;
     position: absolute;
     top: 12px;
-    left: 10px;
+    right: 8px;
 }
 
 #panel-close:hover {
@@ -158,9 +158,10 @@ body {
     background-color: transparent;
     border: 1px solid transparent;
     color: #71a3be;
-    float: right;
-    margin: 0;
     outline: none;
+    position: absolute;
+    top: 12px;
+    right: 6px;
 }
 
 .info-button-container button:hover {
