@@ -85,20 +85,25 @@ a:hover, a:focus {
     left: 10px;
     margin: 10px auto;
     max-width: 70%;
-    padding: 0 10px;
+    padding: 0 15px;
     position: fixed;
     z-index: 1000;
 }
 
 .mainHeader h1 {
-    font-size: 22px;
+    font-size: 26px;
     line-height: 1;
 }
 
 .mainHeader--dates,
 .mainHeader--info {
-    display: block;
+    display: inline-block;
     font-style: italic;
+    font-size: 18px;
+}
+
+.mainHeader--info {
+    display: block;
     font-size: 16px;
 }
 
