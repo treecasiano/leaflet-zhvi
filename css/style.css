@@ -20,22 +20,41 @@ a:hover, a:focus {
     color: #71a3be;
     display: none;
     height: 60vh;
-    top: 85px;
+    top: 90px;
     left: 250px;
-    min-width: 30%;
     overflow: auto;
     padding: 10px 10px 0 10px;
     position: fixed;
     text-align: center;
-    resize: both;
+    z-index: 1000;
+}
+
+.resizable {
+    overflow: hidden;
+    resize: both
+}
+
+.draggable {
+    position: absolute;
+    z-index: 1000;
+}
+
+.draggable-handler {
+    cursor: move;
+    text-align: left;
+    width: 50px;
+}
+
+.dragging {
+    cursor: move;
     z-index: 9999;
 }
 
-@media (min-height: 700px) {
-    #panel {
-        height: 78vh;
-    }
+.active-handle {
+    cursor: move;
 }
+
+
 
 #cities-by-home-value {
     display: none;
@@ -70,7 +89,7 @@ a:hover, a:focus {
     max-width: 70%;
     padding: 0 10px;
     position: fixed;
-    z-index: 9999;
+    z-index: 1000;
 }
 
 .mainHeader h1 {
@@ -78,11 +97,9 @@ a:hover, a:focus {
     line-height: 1;
 }
 
-/*TODO(): increase font-size for large screens and change text from inline-block to block*/
-
 .mainHeader--dates,
 .mainHeader--info {
-    display: inline-block;
+    display: block;
     font-style: italic;
     font-size: 14px;
 }
