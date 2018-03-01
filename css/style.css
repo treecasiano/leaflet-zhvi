@@ -19,19 +19,19 @@ a:hover, a:focus {
     box-shadow: 0 3px 14px rgba(0,0,0,0.4);
     color: #71a3be;
     display: none;
-    height: 60vh;
-    top: 90px;
-    left: 250px;
+    height: 60%;
+    top: 80px;
+    right: 45px;
     overflow: auto;
     padding: 10px 10px 0 10px;
-    position: fixed;
+    position: absolute;
     text-align: center;
+    width: 400px;
     z-index: 1000;
 }
 
-.resizable {
-    overflow: hidden;
-    resize: both
+.resizable-v {
+    resize: vertical;
 }
 
 .draggable {
@@ -53,8 +53,6 @@ a:hover, a:focus {
 .active-handle {
     cursor: move;
 }
-
-
 
 #cities-by-home-value {
     display: none;
@@ -101,7 +99,7 @@ a:hover, a:focus {
 .mainHeader--info {
     display: block;
     font-style: italic;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .range-slider {
@@ -147,7 +145,7 @@ a:hover, a:focus {
     color: darkgray;
     cursor: pointer;
     flex: 1;
-    font-size: 11px;
+    font-size: 14px;
     outline: none;
     padding: 5px 8px;
     transition: .4s;
@@ -155,7 +153,6 @@ a:hover, a:focus {
 
 .tab__btn:hover {
     opacity: .85;
-
 }
 
 .tab__btn.active {
@@ -170,7 +167,7 @@ a:hover, a:focus {
 }
 
 .tab__content {
-    font-size: 14px;
+    font-size: 16px;
     padding-top: 10px;
     padding-bottom: 20px;
     text-align: left;
@@ -229,7 +226,7 @@ a:hover, a:focus {
 
 .leaflet-popup-content p {
     color: #71a3be;
-    font-size: 12px;
+    font-size: 16px;
     margin: 2px 0;
     max-width: 275px;
 }
@@ -259,5 +256,60 @@ a:hover, a:focus {
     background: white;
     border: 1px solid gray;
     border-radius: 0;
+}
+
+@media (min-height: 700px) {
+    #panel {
+        min-height: 50vh;
+    }
+}
+
+@media (max-width: 700px) {
+
+    #panel {
+        width: auto;
+    }
+
+    #cities-list-container {
+        font-size: 12px;
+    }
+
+    .legend-control-temporal-label {
+        font-size: 14px;
+    }
+
+    .leaflet-control-attribution {
+        font-size: 12px;
+    }
+
+    .mainHeader h1 {
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    .mainHeader--dates,
+    .mainHeader--info {
+        display: inline-block;
+        font-style: italic;
+        font-size: 12px;
+    }
+
+    .tab__btn {
+        font-size: 10px;
+    }
+    .tab__content {
+        font-size: 11px;
+    }
+
+    .leaflet-popup-content p {
+        color: #71a3be;
+        font-size: 10px;
+        margin: 2px 0;
+        max-width: 225px;
+    }
+
+    .leaflet-container .leaflet-control-attribution {
+       width: 75px;
+    }
 }
 
