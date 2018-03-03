@@ -67,8 +67,8 @@ function getMap(){
                 map.addLayer(geojsonLayer);
 
                 sortCitiesByHomeValue();
-                createLegend(map, attributes);
                 addSequenceControlsToMap(map, attributes);
+                createLegend(map, attributes);
             }
         });
     }

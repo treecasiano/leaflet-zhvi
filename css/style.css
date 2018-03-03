@@ -247,6 +247,11 @@ a:hover, a:focus {
     font-family: 'Marmelad', sans-serif;
 }
 
+.leaflet-left .leaflet-control {
+    display: inline-block;
+    float: none;
+}
+
 .leaflet-popup-content {
     margin: 15px;
     text-align: center;
