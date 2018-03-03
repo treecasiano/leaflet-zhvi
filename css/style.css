@@ -255,7 +255,8 @@ a:hover, a:focus {
 
 .leaflet-container .leaflet-control-attribution,
 .leaflet-container .leaflet-control-scale {
-    margin: 5px 10px;
+    margin-right: 10px;
+    width: 140px;
 }
 
 .leaflet-control {
@@ -282,7 +283,22 @@ a:hover, a:focus {
     }
 }
 
+@media only screen and (min-width: 400px){
+    .leaflet-container .leaflet-control-attribution,
+    .leaflet-container .leaflet-control-scale {
+        font-size: 13px;
+        width: 250px;
+    }
+}
+
+
+
+
 @media only screen and (min-width: 768px) {
+
+    #panel {
+        width: 400px;
+    }
 
     #cities-list-container {
         font-size: 16px;

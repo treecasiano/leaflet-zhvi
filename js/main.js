@@ -3,7 +3,7 @@ function getMap(){
     var myMap;
 
     var myCenterCoords = [38.8097, -98.5556];
-    var defaultZoom = 5;
+    var defaultZoom = getZoomValue();
 
     /*jQuery objects*/
     var infoContainer = $('#info-container');
@@ -195,9 +195,9 @@ function getMap(){
             },
             onAdd: function() {
                 var additionalInfo = L.DomUtil.create('div', 'leaflet-control-attribution');
-                $(additionalInfo).append('<div>Data source: <a href="https://www.zillow.com/research/data/">&nbsp;Zillow Home Value Index</a></div>');
-                $(additionalInfo).append('<div>Map author: <a href="http://treecasiano.com/">&nbsp;Tree Casiano</a></div>');
-                $(additionalInfo).append('<div>View this code on <a href="https://github.com/treecasiano/leaflet-zhvi">&nbsp;GitHub!</a></div>');
+                $(additionalInfo).append('<div>Data source:<a href="https://www.zillow.com/research/data/">&nbsp;Zillow Home Value Index</a></div>');
+                $(additionalInfo).append('<div>Map author:<a href="http://treecasiano.com/">&nbsp;Tree Casiano</a></div>');
+                $(additionalInfo).append('<div>View this code on<a href="https://github.com/treecasiano/leaflet-zhvi">&nbsp;GitHub</a></div>');
                 $(additionalInfo).on('mousedown dblclick pointerdown', function(e){
                     L.DomEvent.stopPropagation(e);
                 });
@@ -412,6 +412,18 @@ function getMap(){
         var label = "<p>" + formatTimePeriod(attribute) + "&nbsp;Median Home Value </p>";
         var homeValue = "<p>" + attributeValue + "</p>";
         return cityDisplayName + label + homeValue;
+    }
+
+    function getZoomValue() {
+        var clientWidth = document.documentElement.clientWidth;
+
+        if (clientWidth < 500) {
+            return 3;
+        } else if (clientWidth < 1000) {
+            return 4;
+        } else  {
+            return 5;
+        }
     }
 }
 
