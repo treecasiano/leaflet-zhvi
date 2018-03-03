@@ -26,7 +26,6 @@ function getMap(){
     myMap = L.map('map', {layers: [cartoDB]}).setView(myCenterCoords, defaultZoom);
     L.tileLayer.provider('CartoDB.Positron').addTo(myMap);
     L.control.layers(baseMaps).addTo(myMap);
-    createAdditionalAttributionInfo(myMap);
     myMap.zoomControl.setPosition('bottomright');
     getData(myMap);
 
@@ -68,9 +67,8 @@ function getMap(){
                 map.addLayer(geojsonLayer);
 
                 sortCitiesByHomeValue();
-                addSequenceControlsToMap(map, attributes);
                 createLegend(map, attributes);
-
+                addSequenceControlsToMap(map, attributes);
             }
         });
     }
@@ -186,27 +184,6 @@ function getMap(){
         $('#info-button').click(function() {
             infoPanel.toggle();
         });
-    }
-
-    function createAdditionalAttributionInfo(map) {
-        var AdditionalAttributionInfo = L.Control.extend({
-            options: {
-                position: 'bottomright'
-            },
-            onAdd: function() {
-                var additionalInfo = L.DomUtil.create('div', 'leaflet-control-attribution');
-                $(additionalInfo).append('<div>Data source:<a href="https://www.zillow.com/research/data/">&nbsp;Zillow Home Value Index</a></div>');
-                $(additionalInfo).append('<div>Map author:<a href="http://treecasiano.com/">&nbsp;Tree Casiano</a></div>');
-                $(additionalInfo).append('<div>View this code on<a href="https://github.com/treecasiano/leaflet-zhvi">&nbsp;GitHub</a></div>');
-                $(additionalInfo).on('mousedown dblclick pointerdown', function(e){
-                    L.DomEvent.stopPropagation(e);
-                });
-
-                return additionalInfo;
-            }
-        });
-
-        map.addControl(new AdditionalAttributionInfo());
     }
 
     function createSequenceControls(map, attributes) {
@@ -427,7 +404,6 @@ function getMap(){
     }
 }
 
-
 // The code below is an adaptation from https://codepen.io/chriscoyier/pen/zdsty
 // and https://github.com/pjfsilva/dte-project/blob/master/jquery-draggable/draggable.js
 
@@ -457,7 +433,6 @@ function getMap(){
 
                 $drag.css('z-index', 1000).parents()
                     .on("mousemove touchmove", function(e) {
-                        console.log("yo this is being touched!");
                         $('.draggable').offset({
                         top:e.pageY + pos_y - drg_h,
                         left:e.pageX + pos_x - drg_w

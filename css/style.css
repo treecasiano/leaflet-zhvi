@@ -18,12 +18,12 @@ a:hover, a:focus {
 }
 
 #panel {
-    background-color: rgba(255, 255, 255, .75);
+    background-color: rgba(255, 255, 255, .85);
     border: 1px solid gray;
     box-shadow: 0 3px 14px rgba(0,0,0,0.4);
     color: #71a3be;
     display: none;
-    max-height: 75vh;
+    height: 75vh;
     top: 80px;
     right: 45px;
     overflow: auto;
@@ -72,6 +72,7 @@ a:hover, a:focus {
 
 .draggable-handler {
     cursor: move;
+    display: none;
     text-align: left;
     width: 50px;
 }
@@ -95,12 +96,12 @@ a:hover, a:focus {
     max-width: 70%;
     padding: 0 15px;
     position: fixed;
-    z-index: 1000;
+    width: 70%;
+    z-index: 2000;
 }
 
 .mainHeader h1 {
     font-size: 14px;
-    line-height: 1;
 }
 
 .mainHeader--dates,
@@ -108,6 +109,15 @@ a:hover, a:focus {
     display: inline-block;
     font-style: italic;
     font-size: 12px;
+}
+
+.mainHeader--info a {
+    text-decoration: none;
+    color: #71a3be;
+}
+
+.mainHeader--info a:hover {
+    color: salmon;
 }
 
 .range-slider {
@@ -253,12 +263,6 @@ a:hover, a:focus {
     border: 1px solid gray;
 }
 
-.leaflet-container .leaflet-control-attribution,
-.leaflet-container .leaflet-control-scale {
-    margin-right: 10px;
-    width: 140px;
-}
-
 .leaflet-control {
     border: 1px solid gray;
 }
@@ -279,7 +283,7 @@ a:hover, a:focus {
 
 @media (min-height: 768px) {
     #panel {
-        top: 90px;
+        top: 100px;
     }
 }
 
@@ -287,11 +291,8 @@ a:hover, a:focus {
     .leaflet-container .leaflet-control-attribution,
     .leaflet-container .leaflet-control-scale {
         font-size: 13px;
-        width: 250px;
     }
 }
-
-
 
 
 @media only screen and (min-width: 768px) {
@@ -308,13 +309,20 @@ a:hover, a:focus {
         font-size: 14px;
     }
 
+    .draggable-handler {
+        width: 50px;
+    }
+
     .legend-control-temporal-label {
         font-size: 20px;
     }
 
+    .mainHeader {
+        width: 80vh;
+    }
+
     .mainHeader h1 {
         font-size: 26px;
-        line-height: 1.2;
     }
 
     .mainHeader--dates {
@@ -326,7 +334,7 @@ a:hover, a:focus {
     .mainHeader--info {
         display: block;
         font-style: italic;
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .tab__btn, .tab__content  {
