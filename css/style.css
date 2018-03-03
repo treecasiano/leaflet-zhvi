@@ -97,7 +97,7 @@ a:hover, a:focus {
     padding: 0 15px;
     position: fixed;
     width: 70%;
-    z-index: 2000;
+    z-index: 500;
 }
 
 .mainHeader h1 {
@@ -310,7 +310,7 @@ a:hover, a:focus {
     }
 
     .draggable-handler {
-        width: 50px;
+        display: block;
     }
 
     .legend-control-temporal-label {
