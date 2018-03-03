@@ -1,8 +1,18 @@
 body {
-    font-family: 'Franklin Gothic Medium', sans-serif;
+    font-family: 'Marmelad', sans-serif;
     box-sizing: border-box;
     overflow: hidden;
 }
+
+
+.leaflet-container {
+    font-family: 'Marmelad', sans-serif;
+}
+
+#panel button {
+    font-family: 'Marmelad', sans-serif;
+}
+
 
 a:hover, a:focus {
     color: darksalmon;
@@ -244,6 +254,13 @@ a:hover, a:focus {
 .leaflet-touch .leaflet-bar {
     border: 1px solid gray;
 }
+
+.leaflet-container .leaflet-control-attribution,
+.leaflet-container .leaflet-control-scale {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
 
 .leaflet-control {
     border: 1px solid gray;
