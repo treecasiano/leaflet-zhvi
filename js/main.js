@@ -33,14 +33,14 @@ function getMap(){
     $(".tab__btn").click(function() {
         if ($(this).attr('id') === 'tab-btn-market-size') {
             citiesByHomeValue.hide();
-            citiesByMarketSize.slideDown('fast');
+            citiesByMarketSize.fadeIn('fast');
             $(this).addClass('active');
             $('#tab-btn-home-value').removeClass('active');
             listTypeText.html('');
             listTypeText.html('Market Size');
         } else if ($(this).attr('id') === 'tab-btn-home-value') {
             citiesByMarketSize.hide();
-            citiesByHomeValue.slideDown('fast');
+            citiesByHomeValue.fadeIn('fast');
             $(this).addClass('active');
             $('#tab-btn-market-size').removeClass('active');
             listTypeText.html('');
@@ -182,7 +182,7 @@ function getMap(){
 
         map.addControl(new LegendControl());
         $('#info-button').click(function() {
-            infoPanel.toggle();
+            infoPanel.fadeToggle();
         });
     }
 
@@ -419,7 +419,7 @@ function getMap(){
         }
 
         return $el.css('cursor', opt.cursor)
-            .on('mousedown touchstart', function(e) {
+            .on('mousedown', function(e) {
                 if (opt.handle === "") {
                     var $drag = $(this).addClass('draggable');
                 } else {
@@ -432,7 +432,7 @@ function getMap(){
                     pos_x = $drag.offset().left + drg_w - e.pageX;
 
                 $drag.css('z-index', 1000).parents()
-                    .on("mousemove touchmove", function(e) {
+                    .on("mousemove", function(e) {
                         $('.draggable').offset({
                         top:e.pageY + pos_y - drg_h,
                         left:e.pageX + pos_x - drg_w
@@ -441,7 +441,7 @@ function getMap(){
                     });
                 });
             e.preventDefault();
-        }).on("mouseup touchend", function() {
+        }).on("mouseup", function() {
             if (opt.handle === "") {
                 $(this).parent().removeClass('draggable');
             } else {
