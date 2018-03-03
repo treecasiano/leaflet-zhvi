@@ -17,7 +17,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-static": "browser-sync start --server --port 3001 --files=\"./**/**.*\""
+    "start-static-watch": "browser-sync start --server --port 3001 --files=\"./**/**.*\"",
+    "start-serve": "browser-sync start --server"
   },
   "author": "",
   "license": "ISC"
