@@ -8,31 +8,12 @@ a:hover, a:focus {
     color: salmon;
 }
 
-#panel button {
-    font-family: 'Marmelad', sans-serif;
-}
-
 #map {
     height: 100vh;
     width: 100%;
 }
 
-#panel {
-    background-color: rgba(255, 255, 255, .85);
-    border: 1px solid gray;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-    color: #71a3be;
-    display: none;
-    height: 75vh;
-    top: 80px;
-    right: 45px;
-    overflow: auto;
-    padding: 10px 10px 0 10px;
-    position: absolute;
-    text-align: center;
-    width: auto;
-    z-index: 1000;
-}
+/*TODO(): refactor so as to not style by id*/
 
 #cities-by-home-value {
     display: none;
@@ -61,6 +42,31 @@ a:hover, a:focus {
     outline: none;
 }
 
+.info-panel {
+    background-color: rgba(255, 255, 255, .85);
+    border: 1px solid gray;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+    color: #71a3be;
+    display: none;
+    height: 75vh;
+    top: 80px;
+    right: 45px;
+    overflow: hidden;
+    padding: 10px 10px 0 10px;
+    position: absolute;
+    text-align: center;
+    width: auto;
+    z-index: 1000;
+}
+
+.info-panel button {
+    font-family: 'Marmelad', sans-serif;
+}
+
+.scrollable-y {
+    overflow-y: scroll;
+}
+
 .resizable-v {
     resize: vertical;
 }
@@ -72,7 +78,6 @@ a:hover, a:focus {
 
 .draggable-handler {
     cursor: move;
-    display: none;
     text-align: left;
     width: 50px;
 }
@@ -282,7 +287,7 @@ a:hover, a:focus {
 }
 
 @media (min-height: 768px) {
-    #panel {
+    .info-panel {
         top: 100px;
     }
 }
@@ -294,10 +299,9 @@ a:hover, a:focus {
     }
 }
 
-
 @media only screen and (min-width: 768px) {
 
-    #panel {
+    .info-panel {
         width: 400px;
     }
 
@@ -307,10 +311,6 @@ a:hover, a:focus {
 
     #attribute-legend text {
         font-size: 14px;
-    }
-
-    .draggable-handler {
-        display: block;
     }
 
     .legend-control-temporal-label {
@@ -352,8 +352,6 @@ a:hover, a:focus {
     .leaflet-container .leaflet-control-scale {
         font-size: 14px;
     }
-
-
 
 }
 

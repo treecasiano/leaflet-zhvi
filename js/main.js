@@ -292,7 +292,7 @@ function getMap(){
     }
 
     function hideInfoPanel() {
-        infoPanel.fadeOut('slow');
+        infoPanel.fadeOut();
     }
 
     function sortCitiesByHomeValue() {
@@ -406,6 +406,8 @@ function getMap(){
 
 // The code below is an adaptation from https://codepen.io/chriscoyier/pen/zdsty
 // and https://github.com/pjfsilva/dte-project/blob/master/jquery-draggable/draggable.js
+// as well as implementation of touch events from the jQuery-Touch library
+// and my own experimentation
 
 (function($) {
     $.fn.drags = function(opt) {
@@ -419,11 +421,14 @@ function getMap(){
         }
 
         return $el.css('cursor', opt.cursor)
-            .on('mousedown', function(e) {
+            .on('mousedown taphold', function(e) {
+
                 if (opt.handle === "") {
                     var $drag = $(this).addClass('draggable');
+                    $(this).removeClass('scrollable-y');
                 } else {
                     var $drag = $(this).addClass('active-handle').parent().addClass('draggable');
+                    $(this).parent().removeClass('scrollable-y');
                 }
                 var z_idx = $drag.css('z-index'),
                     drg_h = $drag.outerHeight(),
@@ -432,20 +437,23 @@ function getMap(){
                     pos_x = $drag.offset().left + drg_w - e.pageX;
 
                 $drag.css('z-index', 1000).parents()
-                    .on("mousemove", function(e) {
+                    .on("mousemove tapmove", function(e) {
                         $('.draggable').offset({
                         top:e.pageY + pos_y - drg_h,
                         left:e.pageX + pos_x - drg_w
                     }).on("mouseup touchend", function() {
                         $(this).removeClass('draggable').css('z-index', z_idx);
+                        $(this).addClass('scrollable-y');
                     });
                 });
             e.preventDefault();
-        }).on("mouseup", function() {
+        }).on("mouseup tapend", function() {
             if (opt.handle === "") {
                 $(this).parent().removeClass('draggable');
+                $(this).parent().addClass('scrollable-y');
             } else {
                 $(this).removeClass('active-handle').parent().removeClass('draggable');
+                $(this).parent().addClass('scrollable-y');
             }
         });
 
