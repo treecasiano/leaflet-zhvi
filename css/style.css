@@ -4,18 +4,12 @@ body {
     overflow: hidden;
 }
 
-
-.leaflet-container {
-    font-family: 'Marmelad', sans-serif;
+a:hover, a:focus {
+    color: salmon;
 }
 
 #panel button {
     font-family: 'Marmelad', sans-serif;
-}
-
-
-a:hover, a:focus {
-    color: darksalmon;
 }
 
 #map {
@@ -29,15 +23,42 @@ a:hover, a:focus {
     box-shadow: 0 3px 14px rgba(0,0,0,0.4);
     color: #71a3be;
     display: none;
-    height: 60%;
+    max-height: 75vh;
     top: 80px;
     right: 45px;
     overflow: auto;
     padding: 10px 10px 0 10px;
     position: absolute;
     text-align: center;
-    width: 400px;
+    width: auto;
     z-index: 1000;
+}
+
+#cities-by-home-value {
+    display: none;
+}
+
+#cities-list-container {
+    font-size: 12px;
+}
+
+#panel-close {
+    background: transparent;
+    border: none;
+    color: #71a3be;
+    position: absolute;
+    top: 12px;
+    right: 8px;
+}
+
+#panel-close:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+#panel-close:focus {
+    color: salmon;
+    outline: none;
 }
 
 .resizable-v {
@@ -64,29 +85,6 @@ a:hover, a:focus {
     cursor: move;
 }
 
-#cities-by-home-value {
-    display: none;
-}
-
-#panel-close {
-    background: transparent;
-    border: none;
-    color: #71a3be;
-    position: absolute;
-    top: 12px;
-    right: 8px;
-}
-
-#panel-close:hover {
-    cursor: pointer;
-    opacity: .8;
-}
-
-#panel-close:focus {
-    color: darksalmon;
-    outline: none;
-}
-
 .mainHeader {
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid gray;
@@ -101,7 +99,7 @@ a:hover, a:focus {
 }
 
 .mainHeader h1 {
-    font-size: 26px;
+    font-size: 14px;
     line-height: 1;
 }
 
@@ -109,12 +107,7 @@ a:hover, a:focus {
 .mainHeader--info {
     display: inline-block;
     font-style: italic;
-    font-size: 18px;
-}
-
-.mainHeader--info {
-    display: block;
-    font-size: 16px;
+    font-size: 12px;
 }
 
 .range-slider {
@@ -138,15 +131,15 @@ a:hover, a:focus {
 }
 
 .sequence-buttons:hover {
-    border: 1px solid darksalmon;
+    border: 1px solid salmon;
     box-shadow: 0 3px 14px rgba(0,0,0,0.4);
     cursor: pointer;
     opacity: .8;
 }
 
 .sequence-buttons:focus {
-    border: 1px solid darksalmon;
-    color: darksalmon;
+    border: 1px solid salmon;
+    color: salmon;
 }
 
 .tab__container {
@@ -158,33 +151,37 @@ a:hover, a:focus {
     background-color: lightgray;
     border: 2px solid transparent;
     color: darkgray;
-    cursor: pointer;
     flex: 1;
-    font-size: 14px;
+    font-size: 12px;
     outline: none;
     padding: 5px 8px;
     transition: .4s;
 }
 
-.tab__btn:hover {
+.tab__btn:hover:not(.active) {
     opacity: .85;
+    color: salmon;
+}
+
+.tab__btn:not(.active) {
+    cursor: pointer;
 }
 
 .tab__btn.active {
     background-color: white;
-    border-bottom: 2px solid darksalmon;
+    border-bottom: 2px solid salmon;
     color: #71a3be;
     font-weight: bold;
 }
 
 .tab__btn:focus {
-    border-bottom: 2px solid darksalmon;
+    border-bottom: 2px solid salmon;
 }
 
 .tab__content {
-    font-size: 16px;
-    padding-top: 10px;
-    padding-bottom: 20px;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     text-align: left;
     transition: .5s;
 }
@@ -193,7 +190,6 @@ a:hover, a:focus {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid gray;
     color: #71a3be;
-    font-size: 14px;
     line-height: 18px;
     padding: 14px;
     text-align: center;
@@ -222,17 +218,19 @@ a:hover, a:focus {
 }
 
 .info-button-container button:focus {
-    color: darksalmon;
+    color: salmon;
 }
 
 .legend-control-temporal-label {
     float: left;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 14px;
     width: auto;
 }
 
-    /*leaflet overrides*/
+.leaflet-container {
+    font-family: 'Marmelad', sans-serif;
+}
 
 .leaflet-popup-content {
     margin: 15px;
@@ -241,7 +239,7 @@ a:hover, a:focus {
 
 .leaflet-popup-content p {
     color: #71a3be;
-    font-size: 16px;
+    font-size: 10px;
     margin: 2px 0;
     max-width: 275px;
 }
@@ -257,10 +255,8 @@ a:hover, a:focus {
 
 .leaflet-container .leaflet-control-attribution,
 .leaflet-container .leaflet-control-scale {
-    font-size: 14px;
-    margin-bottom: 5px;
+    margin: 5px 10px;
 }
-
 
 .leaflet-control {
     border: 1px solid gray;
@@ -280,55 +276,60 @@ a:hover, a:focus {
     border-radius: 0;
 }
 
-@media (min-height: 700px) {
+@media (min-height: 768px) {
     #panel {
-        min-height: 50vh;
+        top: 90px;
     }
 }
 
-@media (max-width: 700px) {
-
-    #panel {
-        width: auto;
-    }
+@media only screen and (min-width: 768px) {
 
     #cities-list-container {
-        font-size: 12px;
+        font-size: 16px;
+    }
+
+    #attribute-legend text {
+        font-size: 14px;
     }
 
     .legend-control-temporal-label {
-        font-size: 14px;
-    }
-
-    .leaflet-control-attribution {
-        font-size: 12px;
+        font-size: 20px;
     }
 
     .mainHeader h1 {
-        font-size: 14px;
-        line-height: 1;
+        font-size: 26px;
+        line-height: 1.2;
     }
 
-    .mainHeader--dates,
-    .mainHeader--info {
+    .mainHeader--dates {
         display: inline-block;
         font-style: italic;
-        font-size: 12px;
+        font-size: 20px;
     }
 
-    .tab__btn {
-        font-size: 10px;
+    .mainHeader--info {
+        display: block;
+        font-style: italic;
+        font-size: 18px;
     }
-    .tab__content {
-        font-size: 11px;
+
+    .tab__btn, .tab__content  {
+        font-size: 14px;
     }
 
     .leaflet-popup-content p {
         color: #71a3be;
-        font-size: 10px;
+        font-size: 16px;
         margin: 2px 0;
-        max-width: 225px;
+        max-width: 275px;
     }
+
+    .leaflet-container .leaflet-control-attribution,
+    .leaflet-container .leaflet-control-scale {
+        font-size: 14px;
+    }
+
+
 
 }
 
