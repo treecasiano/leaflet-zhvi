@@ -6,7 +6,7 @@ NPM is used for front end package management.
 
 2. Clone repo and install Node modules: `npm install`.
 
-3. Start browser using npm start script: `npm run start-static`. 
+3. Start browser using npm start script: `npm run start-sync`. 
 
 
 
