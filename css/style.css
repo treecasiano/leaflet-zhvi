@@ -67,8 +67,8 @@ a:hover, a:focus {
     overflow-y: scroll;
 }
 
-.resizable-v {
-    resize: vertical;
+.resizable {
+    resize: both;
 }
 
 .draggable {
@@ -126,7 +126,7 @@ a:hover, a:focus {
 }
 
 .range-slider {
-    width: 60%;
+    width: 100%;
 }
 
 .sequence-button-container {
@@ -141,6 +141,7 @@ a:hover, a:focus {
     border: 1px solid transparent;
     box-shadow: 0 3px 14px rgba(0,0,0,0.2);
     color: #71a3be;
+    height: 40px;
     width: 40px;
     margin: 3px;
 }
@@ -307,7 +308,7 @@ a:hover, a:focus {
 @media only screen and (min-width: 768px) {
 
     .info-panel {
-        width: 400px;
+        width: 350px;
     }
 
     #cities-list-container {
