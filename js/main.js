@@ -148,7 +148,7 @@ function getMap(){
                 $(infoButtonContainer).attr("id", 'info-button-container');
                 $(infoButtonContainer).html('<button title="View List of Cities" id="info-button"><i class="fas fa-info-circle"></i></button>');
                 var timePeriod = formatTimePeriod(attributes[0]);
-                var svg = '<svg id="attribute-legend" width="200px" height="100px">';
+                var svg = '<svg id="attribute-legend" width="200px" height="80px">';
                 var circles = ['max', 'mean', 'min'];
                 var circleValues = getCircleValues(map, attributes[0]);
                 var yValues = [25, 50, 75];
