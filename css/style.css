@@ -78,6 +78,7 @@ a:hover, a:focus {
 
 .draggable-handler {
     cursor: move;
+    display: none;
     text-align: left;
     width: 50px;
 }
@@ -126,7 +127,7 @@ a:hover, a:focus {
 }
 
 .range-slider {
-    width: 100%;
+    width: 70%;
 }
 
 .sequence-button-container {
@@ -141,6 +142,7 @@ a:hover, a:focus {
     border: 1px solid transparent;
     box-shadow: 0 3px 14px rgba(0,0,0,0.2);
     color: #71a3be;
+    font-size: 18px;
     height: 40px;
     width: 40px;
     margin: 3px;
@@ -213,7 +215,6 @@ a:hover, a:focus {
 }
 
 .info-button-container {
-    /*leaflet override*/
     font-size: 18px;
     text-align: center;
 }
@@ -244,13 +245,12 @@ a:hover, a:focus {
     width: auto;
 }
 
-.leaflet-container {
-    font-family: 'Marmelad', sans-serif;
+.legend-svg-container {
+    display: none;
 }
 
-.leaflet-left .leaflet-control {
-    display: inline-block;
-    float: none;
+.leaflet-container {
+    font-family: 'Marmelad', sans-serif;
 }
 
 .leaflet-popup-content {
@@ -278,6 +278,10 @@ a:hover, a:focus {
     border: 1px solid gray;
 }
 
+.leaflet-touch .leaflet-bar a {
+    color: #71a3be;
+}
+
 .leaflet-control-layers {
     border-radius: 0;
 }
@@ -298,14 +302,23 @@ a:hover, a:focus {
     }
 }
 
-@media only screen and (min-width: 400px){
+@media only screen and (min-width: 675px){
     .leaflet-container .leaflet-control-attribution,
     .leaflet-container .leaflet-control-scale {
-        font-size: 13px;
+        font-size: 14px;
     }
+
+    .legend-svg-container {
+        display: block;
+    }
+
 }
 
 @media only screen and (min-width: 768px) {
+
+    .draggable-handler {
+        display: block;
+    }
 
     .info-panel {
         width: 350px;
